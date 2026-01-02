@@ -13,7 +13,6 @@ export default {
 The {{componentName}} component is a compact component that displays a title and a button with a custom label.
 It supports custom press handling for the button and is designed for efficient use of space.
     `,
-    withGraphqlClient: false,
   },
 } as Meta
 

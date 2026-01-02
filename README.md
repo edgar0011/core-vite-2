@@ -21,7 +21,6 @@
 - 🔧 **Plop** - Component scaffolding and code generation
 - ♿️ **A11y Testing** - Built-in accessibility testing
 - 📊 **Coverage Reports** - V8 coverage with multiple formats
-- 🔍 **GraphQL Support** - ESLint rules for GraphQL files
 
 ## 🚀 Quick Start
 
@@ -235,7 +234,6 @@ Modern flat config with:
 - React & React Hooks rules
 - Auto-sorted imports
 - Unused imports removal
-- GraphQL file support
 - Prettier integration
 - No semicolons, curly braces enforced
 
@@ -394,27 +392,6 @@ export const Default: Story = {
   args: { title: 'Hello' },
 }
 ```
-
-## 🔍 GraphQL Support
-
-ESLint is configured for GraphQL files:
-
-```graphql
-# src/queries/user.graphql
-query GetUser($id: ID!) {
-  user(id: $id) {
-    id
-    name
-    email
-  }
-}
-```
-
-Rules enforced:
-- Known type names
-- No deprecated fields (warning)
-- No unused fragments (warning)
-- Require ID when available
 
 ## 📝 Environment Variables
 
