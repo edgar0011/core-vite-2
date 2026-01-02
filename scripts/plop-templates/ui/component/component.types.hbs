@@ -1,0 +1,13 @@
+import { ComponentProps, PropsWithChildren } from 'react'
+
+export type {{pascalCase name}}Props = ComponentProps<'div'> &
+  PropsWithChildren & {
+    /** The title to display in the {{camelCase name}} */
+    title?: string
+    /** The description text to display */
+    description?: string
+    /** The label for the action button */
+    buttonLabel?: string
+    /** Handler function called when the button is clicked */
+    onButtonClick?: () => void
+  }

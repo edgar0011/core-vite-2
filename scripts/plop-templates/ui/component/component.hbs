@@ -1,0 +1,38 @@
+import { FC } from 'react'
+
+import { BoxLayout } from '~/components/molecules/boxLayout/BoxLayout'
+import { Button } from '~/components/ui/button'
+import { Heading, Text } from '~/components/ui/typography'
+import { cn } from '~/lib/utils'
+
+import type { {{pascalCase name}}Props } from './{{kebabCase name}}.types'
+
+export const {{pascalCase name}}: FC<{{pascalCase name}}Props> = ({
+  title = '{{pascalCase name}} Title',
+  description = '{{pascalCase name}} description text',
+  buttonLabel = 'Action',
+  onButtonClick,
+  className,
+  children,
+  ...props
+}) => {
+  return (
+    <BoxLayout column wFull className={cn('', className)} {...props}>
+      <Heading variant="default/md" as="h3">
+        {title}
+      </Heading>
+
+      <Text variant="default/sm">{description}</Text>
+
+      {children}
+
+      <Button variant="primary" size="md" onClick={onButtonClick}>
+        {buttonLabel}
+      </Button>
+    </BoxLayout>
+  )
+}
+
+{{pascalCase name}}.displayName = '{{pascalCase name}}'
+
+export type {{pascalCase name}}Type = typeof {{pascalCase name}}

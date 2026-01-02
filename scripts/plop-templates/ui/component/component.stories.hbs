@@ -1,0 +1,34 @@
+import { Meta, StoryFn as Story } from '@storybook/nextjs'
+
+import { {{pascalCase name}} } from '~/components/{{module}}/{{kebabCase name}}'
+import type { {{pascalCase name}}Props } from '~/components/{{module}}/{{kebabCase name}}.types'
+
+export default {
+  title: 'components/{{module}}/{{kebabCase name}}/{{kebabCase name}}',
+  component: {{pascalCase name}},
+  parameters: {
+    notes: `
+# {{pascalCase name}}
+
+The {{pascalCase name}} component is a compact component that displays a title and a button with a custom label.
+It supports custom press handling for the button and is designed for efficient use of space.
+    `,
+    withGraphqlClient: false,
+  },
+} as Meta
+
+const {{pascalCase name}}Template: Story<{{pascalCase name}}Props> = (args) => (
+  <div className="flex h-[80vh] w-full items-center justify-center">
+    <{{pascalCase name}} {...args} />
+  </div>
+)
+
+export const {{pascalCase name}}Base: Story<{{pascalCase name}}Props> = (args, context) =>
+  {{pascalCase name}}Template(args, context)
+
+{{pascalCase name}}Base.args = {
+  title: 'Sample {{pascalCase name}}',
+  description: 'This is a sample {{camelCase name}} description that shows how the component works.',
+  buttonLabel: 'Click Me',
+  onButtonClick: () => console.log('{{pascalCase name}} button clicked!'),
+}

@@ -1,0 +1,16 @@
+import { {{componentName}} } from '~/{{componentFolder}}/{{componentFileName}}'
+import { render } from '~/utils/test/test-utils'
+
+describe('{{componentFolder}}/{{componentName}}', () => {
+  it('renders {{pascalCase name}} with classes', () => {
+    const rendered = render(<{{componentName}} className="anotherClass" />)
+
+    const elements = rendered?.container.querySelectorAll('.anotherClass')
+
+    const element = elements[0] as HTMLElement
+
+    expect(rendered?.container).toBeDefined()
+    expect(elements?.length).toEqual(1)
+    expect(element?.getAttribute('class')?.includes('anotherClass')).toEqual(true)
+  })
+})

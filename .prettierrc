@@ -1,0 +1,11 @@
+{
+  "jsonRecursiveSort": true,
+  "plugins": [
+    "prettier-plugin-packagejson",
+    "prettier-plugin-sort-json",
+    "prettier-plugin-tailwindcss"
+  ],
+  "printWidth": 100,
+  "semi": false,
+  "singleQuote": true
+}

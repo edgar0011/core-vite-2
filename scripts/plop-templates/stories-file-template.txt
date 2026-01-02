@@ -1,0 +1,28 @@
+import { Meta, StoryFn as Story } from '@storybook/react'
+
+import { {{componentName}} } from '~/{{componentFolder}}/{{componentFileName}}'
+import { {{componentName}}Props } from '~/{{componentFolder}}/{{camelCase componentName}}.types'
+
+export default {
+  title: '{{componentFolder}}/{{componentName}}',
+  component: {{componentName}},
+  parameters: {
+    notes: `
+# {{componentName}}
+
+The {{componentName}} component is a compact component that displays a title and a button with a custom label.
+It supports custom press handling for the button and is designed for efficient use of space.
+    `,
+    withGraphqlClient: false,
+  },
+} as Meta
+
+const {{componentName}}Template: Story<{{componentName}}Props> = (args) => (
+  <div className="flex w-full items-center justify-center">
+    <{{componentName}} {...args}>or with some content...</{{componentName}}>
+  </div>
+)
+
+export const {{componentName}}Base: Story<{{componentName}}Props> = (args, context) => {{componentName}}Template(args, context)
+
+{{componentName}}Base.args = {}
