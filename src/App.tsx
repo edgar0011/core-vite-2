@@ -16,7 +16,7 @@ function App() {
 
   return (
     <Theme>
-      <div>
+      <div className="container mx-auto h-full w-full">
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -33,9 +33,13 @@ function App() {
       </div>
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
 
-      <LayoutBox>
+      <LayoutBox column>
         <h1>LayoutBox</h1>
         <Box buttonLabel="Box Button" />
+      </LayoutBox>
+
+      <LayoutBox>
+        <h1 className="text-3xl font-bold text-blue-400 underline text-shadow-lg">Hello world!</h1>
       </LayoutBox>
     </Theme>
   )

@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /** assets/stylesheets/global.scss */
 @import "@radix-ui/themes/styles";
 
