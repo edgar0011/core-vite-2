@@ -1,6 +1,8 @@
-import type { ComponentProps, PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 
-export type BoxProps = ComponentProps<'div'> &
+import type { BoxLayoutProps } from '~/components/es-kit/components/container/layoutBox/layoutBox.types'
+
+export type BoxProps = BoxLayoutProps &
   PropsWithChildren & {
     /** The title to display in the box */
     title?: string

@@ -101,11 +101,25 @@ npm run plop
 npm run plop component -- --component "molecules/MyButton"
 ```
 
-This creates:
-- `{name}.tsx` - Component file
-- `{name}.types.ts` - TypeScript types
-- `{name}.stories.tsx` - Storybook story
-- `{name}.spec.tsx` - Vitest test file
+### What You Get
+
+When you run `npm run plop component -- --component "path/ComponentName"`, you'll get:
+
+- **`component-name.tsx`** - Component with Radix UI, proper typing, JSDoc comments
+- **`component-name.types.ts`** - Type definitions with proper type imports
+- **`component-name.stories.tsx`** - Storybook story with `@storybook/react-vite`
+- **`component-name.spec.tsx`** - Vitest tests with comprehensive coverage
+
+All files follow the same patterns and best practices as the Box component example! 🚀
+
+### Generated Component Features
+
+- ✅ **Radix UI Integration** - Uses `@radix-ui/themes` components
+- ✅ **Type Safety** - Full TypeScript support with proper type imports
+- ✅ **Accessible** - Built with accessibility in mind
+- ✅ **Tested** - Includes comprehensive test suite
+- ✅ **Documented** - Storybook stories and JSDoc comments
+- ✅ **Styled** - Ready for Tailwind CSS with `cn()` utility
 
 ## 🧪 Testing
 

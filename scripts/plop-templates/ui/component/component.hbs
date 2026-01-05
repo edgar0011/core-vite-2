@@ -1,12 +1,14 @@
-import { FC } from 'react'
+import { Button, Heading, Text } from '@radix-ui/themes'
+import { type FC } from 'react'
 
-import { BoxLayout } from '~/components/molecules/boxLayout/BoxLayout'
-import { Button } from '~/components/ui/button'
-import { Heading, Text } from '~/components/ui/typography'
+import { BoxLayout } from '~/components/es-kit/components/container/layoutBox/LayoutBox'
 import { cn } from '~/lib/utils'
 
 import type { {{pascalCase name}}Props } from './{{kebabCase name}}.types'
 
+/**
+ * {{pascalCase name}} component
+ */
 export const {{pascalCase name}}: FC<{{pascalCase name}}Props> = ({
   title = '{{pascalCase name}} Title',
   description = '{{pascalCase name}} description text',
@@ -18,17 +20,13 @@ export const {{pascalCase name}}: FC<{{pascalCase name}}Props> = ({
 }) => {
   return (
     <BoxLayout column wFull className={cn('', className)} {...props}>
-      <Heading variant="default/md" as="h3">
-        {title}
-      </Heading>
+      <Heading as="h1">{title}</Heading>
 
-      <Text variant="default/sm">{description}</Text>
+      <Text size="6">{description}</Text>
 
       {children}
 
-      <Button variant="primary" size="md" onClick={onButtonClick}>
-        {buttonLabel}
-      </Button>
+      <Button onClick={onButtonClick}>{buttonLabel}</Button>
     </BoxLayout>
   )
 }

@@ -1,4 +1,4 @@
-import { CSSProperties, HTMLAttributes, LegacyRef } from 'react'
+import type { CSSProperties, HTMLAttributes, LegacyRef } from 'react'
 
 /**
  * Enum representing the possible layout directions.
@@ -70,3 +70,5 @@ export type LayoutBoxProps = Omit<HTMLAttributes<HTMLDivElement>, 'onKeyDown'> &
   /** If true, adds an outline to help debug layout issues. */
   debug?: boolean
 } & Omit<CSSProperties, 'direction' | 'flex'>
+
+export type BoxLayoutProps = LayoutBoxProps

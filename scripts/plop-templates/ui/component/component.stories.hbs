@@ -1,4 +1,4 @@
-import { Meta, StoryFn as Story } from '@storybook/nextjs'
+import type { Meta, StoryFn as Story } from '@storybook/react-vite'
 
 import { {{pascalCase name}} } from '~/components/{{module}}/{{kebabCase name}}'
 import type { {{pascalCase name}}Props } from '~/components/{{module}}/{{kebabCase name}}.types'
@@ -22,8 +22,7 @@ const {{pascalCase name}}Template: Story<{{pascalCase name}}Props> = (args) => (
   </div>
 )
 
-export const {{pascalCase name}}Base: Story<{{pascalCase name}}Props> = (args, context) =>
-  {{pascalCase name}}Template(args, context)
+export const {{pascalCase name}}Base: Story<{{pascalCase name}}Props> = (args, context) => {{pascalCase name}}Template(args, context)
 
 {{pascalCase name}}Base.args = {
   title: 'Sample {{pascalCase name}}',

@@ -153,6 +153,11 @@ const LayoutBoxRefForwarded = forwardRef(
       width,
     ])
 
+    console.log('LayoutBox className', className)
+    console.log('LayoutBox className', classNames(classes['layout-box'], className))
+
+    console.log('LayoutBox styles', styles)
+
     return (
       <div
         {...(id ? { id: `${id}` } : {})}
