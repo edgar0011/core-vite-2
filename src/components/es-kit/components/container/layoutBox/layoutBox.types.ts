@@ -1,14 +1,6 @@
 import type { CSSProperties, HTMLAttributes, LegacyRef } from 'react'
 
 /**
- * Enum representing the possible layout directions.
- */
-export enum LayoutDirection {
-  ROW = 'row',
-  COLUMN = 'column',
-}
-
-/**
  * Props for the LayoutBox component.
  */
 // TODO replace with & React.DIVHtmlAttributes<HTMLDivElement>
@@ -20,7 +12,7 @@ export type LayoutBoxProps = Omit<HTMLAttributes<HTMLDivElement>, 'onKeyDown'> &
   /** Text alignment within the box. */
   alignText?: 'center' | 'right' | 'left'
   /** Direction of the layout (row or column). */
-  direction?: LayoutDirection | string
+  direction?: 'row' | 'column'
   /** CSS flexShrink property. */
   flexShrink?: string | number
   /** CSS flexBasis property. */
