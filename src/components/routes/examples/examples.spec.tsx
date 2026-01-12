@@ -1,20 +1,24 @@
 import { Examples } from '~/components/routes/examples/examples'
-import { fireEvent, render, screen } from '~/utils/test/test-utils'
+import { fireEvent, renderWithRouter, screen, waitFor } from '~/utils/test/test-utils'
+
+const mockLoaderData = { message: 'Hello from the loader!' }
 
 describe('components/routes/examples/Examples', () => {
-  it('renders Examples with default props', () => {
-    const rendered = render(<Examples />)
+  it('renders Examples with default props', async () => {
+    const rendered = await renderWithRouter(<Examples />, { loaderData: mockLoaderData })
 
     expect(rendered?.container).toBeDefined()
-    expect(screen.getByText('Examples Title')).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText('Examples Title')).toBeInTheDocument()
+    })
     expect(screen.getByText('Examples description text')).toBeInTheDocument()
     expect(screen.getByText('Action')).toBeInTheDocument()
   })
 
-  it('renders Examples with custom props', () => {
+  it('renders Examples with custom props', async () => {
     const mockOnClick = vi.fn()
 
-    render(
+    await renderWithRouter(
       <Examples
         title="Custom Title"
         description="Custom description"
@@ -22,6 +26,7 @@ describe('components/routes/examples/Examples', () => {
         onButtonClick={mockOnClick}
         className="custom-class"
       />,
+      { loaderData: mockLoaderData },
     )
 
     expect(screen.getByText('Custom Title')).toBeInTheDocument()
@@ -29,10 +34,10 @@ describe('components/routes/examples/Examples', () => {
     expect(screen.getByText('Custom Button')).toBeInTheDocument()
   })
 
-  it('calls onButtonClick when button is clicked', () => {
+  it('calls onButtonClick when button is clicked', async () => {
     const mockOnClick = vi.fn()
 
-    render(<Examples onButtonClick={mockOnClick} />)
+    await renderWithRouter(<Examples onButtonClick={mockOnClick} />, { loaderData: mockLoaderData })
 
     const buttons = screen.getAllByText('Action')
     const button = buttons[buttons.length - 1]
@@ -42,19 +47,22 @@ describe('components/routes/examples/Examples', () => {
     expect(mockOnClick).toHaveBeenCalledTimes(1)
   })
 
-  it('renders children when provided', () => {
-    render(
+  it('renders children when provided', async () => {
+    await renderWithRouter(
       <Examples>
         <div data-test-id="custom-content">Custom content</div>
       </Examples>,
+      { loaderData: mockLoaderData },
     )
 
     expect(screen.getByTestId('custom-content')).toBeInTheDocument()
     expect(screen.getByText('Custom content')).toBeInTheDocument()
   })
 
-  it('renders Examples with classes', () => {
-    const rendered = render(<Examples className="anotherClass" />)
+  it('renders Examples with classes', async () => {
+    const rendered = await renderWithRouter(<Examples className="anotherClass" />, {
+      loaderData: mockLoaderData,
+    })
 
     const elements = rendered?.container.querySelectorAll('.anotherClass')
 
@@ -63,5 +71,11 @@ describe('components/routes/examples/Examples', () => {
     expect(rendered?.container).toBeDefined()
     expect(elements?.length).toEqual(1)
     expect(element?.getAttribute('class')?.includes('anotherClass')).toEqual(true)
+  })
+
+  it('renders loader data message', async () => {
+    await renderWithRouter(<Examples />, { loaderData: mockLoaderData })
+
+    expect(screen.getByText(/Hello from the loader!/)).toBeInTheDocument()
   })
 })

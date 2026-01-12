@@ -1,6 +1,16 @@
 import type { CSSProperties, HTMLAttributes, LegacyRef } from 'react'
 
 /**
+ * Layout direction constants for LayoutBox component.
+ */
+export const LayoutDirection = {
+  ROW: 'row',
+  COLUMN: 'column',
+} as const
+
+export type LayoutDirection = (typeof LayoutDirection)[keyof typeof LayoutDirection]
+
+/**
  * Props for the LayoutBox component.
  */
 // TODO replace with & React.DIVHtmlAttributes<HTMLDivElement>
