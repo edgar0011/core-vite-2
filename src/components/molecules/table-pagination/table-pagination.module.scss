@@ -1,0 +1,63 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+}
+
+.itemsInfo {
+  font-size: 0.875rem;
+  color: var(--gray-11, #6b6b6b);
+}
+
+.pageSizeSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pageSizeLabel {
+  font-size: 0.875rem;
+  color: var(--gray-11, #6b6b6b);
+}
+
+.pageNavigation {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ellipsis {
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--gray-9, #8b8b8b);
+}
+
+.pageButton {
+  min-width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pageButtonActive {
+  font-weight: 600;
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  .pagination {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .pageNavigation {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

@@ -1,0 +1,25 @@
+.tableCell {
+  vertical-align: middle;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.columnHeader {
+  font-weight: 600;
+  color: var(--gray-12, #1a1a1a);
+}
+
+.rowHeader {
+  font-weight: 500;
+}
+

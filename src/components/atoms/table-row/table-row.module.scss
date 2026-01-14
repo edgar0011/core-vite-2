@@ -1,0 +1,19 @@
+// TableRow styles using Radix UI CSS variables
+// The component uses inline styles with var(--accent-3) for selected state
+// and data-selected attribute for additional styling hooks
+
+.tableRow {
+  transition: background-color 0.15s ease-in-out;
+}
+
+// Hover styles for clickable rows
+:global {
+  tr.cursor-pointer:hover {
+    background-color: var(--gray-a3) !important;
+  }
+
+  tr[data-selected='true']:hover {
+    background-color: var(--accent-4) !important;
+  }
+}
+
