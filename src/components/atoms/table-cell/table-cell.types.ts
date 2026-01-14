@@ -18,5 +18,9 @@ export type TableCellProps = PropsWithChildren<{
   colSpan?: number
   /** Row span */
   rowSpan?: number
+  /** Column identifier for data attribute */
+  columnId?: string
+  /** Row identifier for data attribute */
+  rowId?: string | number
 }> &
   (RadixCellProps | RadixColumnHeaderCellProps | RadixRowHeaderCellProps)

@@ -15,27 +15,34 @@ export const TableCell: FC<TableCellProps> = ({
   children,
   className,
   align,
+  columnId,
+  rowId,
   ...props
 }) => {
   const combinedClassName = cn(tableCellVariants({ align }), className)
 
+  const dataAttributes = {
+    'data-column-id': columnId,
+    'data-row-id': rowId !== undefined ? String(rowId) : undefined,
+  }
+
   switch (variant) {
     case 'columnHeader':
       return (
-        <Table.ColumnHeaderCell className={combinedClassName} {...props}>
+        <Table.ColumnHeaderCell className={combinedClassName} {...dataAttributes} {...props}>
           {children}
         </Table.ColumnHeaderCell>
       )
     case 'rowHeader':
       return (
-        <Table.RowHeaderCell className={combinedClassName} {...props}>
+        <Table.RowHeaderCell className={combinedClassName} {...dataAttributes} {...props}>
           {children}
         </Table.RowHeaderCell>
       )
     case 'cell':
     default:
       return (
-        <Table.Cell className={combinedClassName} {...props}>
+        <Table.Cell className={combinedClassName} {...dataAttributes} {...props}>
           {children}
         </Table.Cell>
       )

@@ -42,6 +42,8 @@ export function TableRow<T>({
           key={column.key}
           variant={column.isRowHeader && colIndex === 0 ? 'rowHeader' : 'cell'}
           align={column.align}
+          columnId={column.key}
+          rowId={rowIndex}
         >
           {column.render(data, rowIndex)}
         </TableCell>

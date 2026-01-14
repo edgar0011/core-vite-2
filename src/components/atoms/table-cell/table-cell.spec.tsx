@@ -86,4 +86,45 @@ describe('components/atoms/table-cell/TableCell', () => {
 
     expect(screen.getByText('Child element')).toBeInTheDocument()
   })
+
+  it('applies data-column-id and data-row-id attributes', () => {
+    render(
+      <TableWrapper>
+        <TableCell columnId="name" rowId={0}>
+          Cell content
+        </TableCell>
+      </TableWrapper>,
+    )
+
+    const cell = screen.getByRole('cell')
+    expect(cell).toHaveAttribute('data-column-id', 'name')
+    expect(cell).toHaveAttribute('data-row-id', '0')
+  })
+
+  it('applies data attributes to columnHeader variant', () => {
+    render(
+      <HeaderWrapper>
+        <TableCell variant="columnHeader" columnId="email">
+          Header content
+        </TableCell>
+      </HeaderWrapper>,
+    )
+
+    const cell = screen.getByRole('columnheader')
+    expect(cell).toHaveAttribute('data-column-id', 'email')
+  })
+
+  it('applies data attributes to rowHeader variant', () => {
+    render(
+      <TableWrapper>
+        <TableCell variant="rowHeader" columnId="id" rowId={5}>
+          Row header content
+        </TableCell>
+      </TableWrapper>,
+    )
+
+    const cell = screen.getByRole('rowheader')
+    expect(cell).toHaveAttribute('data-column-id', 'id')
+    expect(cell).toHaveAttribute('data-row-id', '5')
+  })
 })

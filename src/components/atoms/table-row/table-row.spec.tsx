@@ -134,4 +134,20 @@ describe('components/atoms/table-row/TableRow', () => {
     expect(row).toHaveAttribute('data-selected', 'true')
     expect(row.className).toContain('cursor-pointer')
   })
+
+  it('renders cells with data-column-id and data-row-id attributes', () => {
+    render(
+      <TableWrapper>
+        <TableRow columns={defaultColumns} data={defaultData} rowIndex={2} />
+      </TableWrapper>,
+    )
+
+    const cells = screen.getAllByRole('cell')
+    expect(cells[0]).toHaveAttribute('data-column-id', 'name')
+    expect(cells[0]).toHaveAttribute('data-row-id', '2')
+    expect(cells[1]).toHaveAttribute('data-column-id', 'email')
+    expect(cells[1]).toHaveAttribute('data-row-id', '2')
+    expect(cells[2]).toHaveAttribute('data-column-id', 'role')
+    expect(cells[2]).toHaveAttribute('data-row-id', '2')
+  })
 })
