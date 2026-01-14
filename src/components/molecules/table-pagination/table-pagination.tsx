@@ -97,7 +97,13 @@ export const TablePagination: FC<TablePaginationProps> = ({
   }
 
   return (
-    <Flex align="center" justify="between" gap="4" wrap="wrap" className={cn('px-2 py-3', className)}>
+    <Flex
+      align="center"
+      justify="between"
+      gap="4"
+      wrap="wrap"
+      className={cn('px-2 py-3', className)}
+    >
       {/* Items info */}
       {showItemsInfo && (
         <Text size="2" color="gray">
@@ -164,4 +170,3 @@ export const TablePagination: FC<TablePaginationProps> = ({
 TablePagination.displayName = 'TablePagination'
 
 export type TablePaginationType = typeof TablePagination
-

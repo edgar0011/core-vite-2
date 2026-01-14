@@ -2,7 +2,6 @@ import { Table } from '@radix-ui/themes'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { TableCell } from './table-cell'
-import type { TableCellProps } from './table-cell.types'
 
 const meta: Meta<typeof TableCell> = {
   title: 'components/atoms/table-cell/TableCell',
@@ -117,4 +116,3 @@ export const AllVariants: Story = {
   render: () => <AllVariantsTemplate />,
   decorators: [], // Remove default decorator
 }
-

@@ -1,6 +1,7 @@
 import { Table } from '@radix-ui/themes'
 
 import { TableRow } from '~/components/atoms/table-row/table-row'
+import type { TableRowColumn } from '~/components/atoms/table-row/table-row.types'
 import { fireEvent, render, screen } from '~/utils/test/test-utils'
 
 // Helper wrapper to render rows within valid table structure
@@ -10,26 +11,37 @@ const TableWrapper = ({ children }: { children: React.ReactNode }) => (
   </Table.Root>
 )
 
+// Sample data type for tests
+type TestData = { name: string; email: string; role: string }
+
+// Default columns for tests
+const defaultColumns: TableRowColumn<TestData>[] = [
+  { key: 'name', render: (row) => row.name },
+  { key: 'email', render: (row) => row.email },
+  { key: 'role', render: (row) => row.role },
+]
+
+// Default data for tests
+const defaultData: TestData = { name: 'John Doe', email: 'john@example.com', role: 'Developer' }
+
 describe('components/atoms/table-row/TableRow', () => {
-  it('renders TableRow with default props', () => {
+  it('renders TableRow with columns and data', () => {
     render(
       <TableWrapper>
-        <TableRow>
-          <Table.Cell>Cell content</Table.Cell>
-        </TableRow>
+        <TableRow columns={defaultColumns} data={defaultData} />
       </TableWrapper>,
     )
 
     expect(screen.getByRole('row')).toBeInTheDocument()
-    expect(screen.getByText('Cell content')).toBeInTheDocument()
+    expect(screen.getByText('John Doe')).toBeInTheDocument()
+    expect(screen.getByText('john@example.com')).toBeInTheDocument()
+    expect(screen.getByText('Developer')).toBeInTheDocument()
   })
 
   it('applies custom className', () => {
     render(
       <TableWrapper>
-        <TableRow className="custom-class">
-          <Table.Cell>Cell content</Table.Cell>
-        </TableRow>
+        <TableRow columns={defaultColumns} data={defaultData} className="custom-class" />
       </TableWrapper>,
     )
 
@@ -40,9 +52,7 @@ describe('components/atoms/table-row/TableRow', () => {
   it('applies selected styling when selected is true', () => {
     render(
       <TableWrapper>
-        <TableRow selected>
-          <Table.Cell>Selected row</Table.Cell>
-        </TableRow>
+        <TableRow columns={defaultColumns} data={defaultData} selected />
       </TableWrapper>,
     )
 
@@ -56,9 +66,7 @@ describe('components/atoms/table-row/TableRow', () => {
 
     render(
       <TableWrapper>
-        <TableRow onClick={mockOnClick}>
-          <Table.Cell>Clickable row</Table.Cell>
-        </TableRow>
+        <TableRow columns={defaultColumns} data={defaultData} onClick={mockOnClick} />
       </TableWrapper>,
     )
 
@@ -68,12 +76,10 @@ describe('components/atoms/table-row/TableRow', () => {
     expect(mockOnClick).toHaveBeenCalledTimes(1)
   })
 
-  it('applies hover styling when onClick is provided', () => {
+  it('applies cursor-pointer when onClick is provided', () => {
     render(
       <TableWrapper>
-        <TableRow onClick={() => {}}>
-          <Table.Cell>Clickable row</Table.Cell>
-        </TableRow>
+        <TableRow columns={defaultColumns} data={defaultData} onClick={() => {}} />
       </TableWrapper>,
     )
 
@@ -81,20 +87,38 @@ describe('components/atoms/table-row/TableRow', () => {
     expect(row.className).toContain('cursor-pointer')
   })
 
-  it('renders multiple cells', () => {
+  it('renders cells with correct alignment', () => {
+    const columnsWithAlign: TableRowColumn<TestData>[] = [
+      { key: 'name', render: (row) => row.name, align: 'left' },
+      { key: 'email', render: (row) => row.email, align: 'center' },
+      { key: 'role', render: (row) => row.role, align: 'right' },
+    ]
+
     render(
       <TableWrapper>
-        <TableRow>
-          <Table.Cell>Cell 1</Table.Cell>
-          <Table.Cell>Cell 2</Table.Cell>
-          <Table.Cell>Cell 3</Table.Cell>
-        </TableRow>
+        <TableRow columns={columnsWithAlign} data={defaultData} />
       </TableWrapper>,
     )
 
-    expect(screen.getByText('Cell 1')).toBeInTheDocument()
-    expect(screen.getByText('Cell 2')).toBeInTheDocument()
-    expect(screen.getByText('Cell 3')).toBeInTheDocument()
+    expect(screen.getByText('John Doe')).toBeInTheDocument()
+    expect(screen.getByText('john@example.com')).toBeInTheDocument()
+    expect(screen.getByText('Developer')).toBeInTheDocument()
+  })
+
+  it('renders row header cell when isRowHeader is true', () => {
+    const columnsWithRowHeader: TableRowColumn<TestData>[] = [
+      { key: 'name', render: (row) => row.name, isRowHeader: true },
+      { key: 'email', render: (row) => row.email },
+    ]
+
+    render(
+      <TableWrapper>
+        <TableRow columns={columnsWithRowHeader} data={defaultData} />
+      </TableWrapper>,
+    )
+
+    expect(screen.getByRole('rowheader')).toBeInTheDocument()
+    expect(screen.getByText('John Doe')).toBeInTheDocument()
   })
 
   it('combines selected and onClick styling', () => {
@@ -102,9 +126,7 @@ describe('components/atoms/table-row/TableRow', () => {
 
     render(
       <TableWrapper>
-        <TableRow selected onClick={mockOnClick}>
-          <Table.Cell>Selected clickable row</Table.Cell>
-        </TableRow>
+        <TableRow columns={defaultColumns} data={defaultData} selected onClick={mockOnClick} />
       </TableWrapper>,
     )
 
@@ -113,4 +135,3 @@ describe('components/atoms/table-row/TableRow', () => {
     expect(row.className).toContain('cursor-pointer')
   })
 })
-

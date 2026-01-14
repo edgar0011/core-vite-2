@@ -3,8 +3,22 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 
 import { TableRow } from './table-row'
+import type { TableRowColumn } from './table-row.types'
 
-const meta: Meta<typeof TableRow> = {
+// Sample data type
+type Person = { id: number; name: string; email: string; role: string }
+
+// Default columns configuration
+const defaultColumns: TableRowColumn<Person>[] = [
+  { key: 'name', render: (row) => row.name },
+  { key: 'email', render: (row) => row.email },
+  { key: 'role', render: (row) => row.role },
+]
+
+// Sample data
+const sampleData: Person = { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Developer' }
+
+const meta: Meta<typeof TableRow<Person>> = {
   title: 'components/atoms/table-row/TableRow',
   component: TableRow,
   parameters: {
@@ -12,6 +26,7 @@ const meta: Meta<typeof TableRow> = {
 # TableRow Component
 
 A table row component built on Radix UI Table primitives.
+Accepts columns configuration and row data, rendering TableCell components internally.
 Supports selection state and click handling with appropriate styling.
     `,
   },
@@ -35,43 +50,50 @@ Supports selection state and click handling with appropriate styling.
 }
 
 export default meta
-type Story = StoryObj<typeof TableRow>
+type Story = StoryObj<typeof TableRow<Person>>
 
 export const Default: Story = {
   args: {
-    children: (
-      <>
-        <Table.Cell>John Doe</Table.Cell>
-        <Table.Cell>john@example.com</Table.Cell>
-        <Table.Cell>Developer</Table.Cell>
-      </>
-    ),
+    columns: defaultColumns,
+    data: sampleData,
   },
 }
 
 export const Selected: Story = {
   args: {
+    columns: defaultColumns,
+    data: { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Designer' },
     selected: true,
-    children: (
-      <>
-        <Table.Cell>Jane Smith</Table.Cell>
-        <Table.Cell>jane@example.com</Table.Cell>
-        <Table.Cell>Designer</Table.Cell>
-      </>
-    ),
   },
 }
 
 export const Clickable: Story = {
   args: {
+    columns: defaultColumns,
+    data: { id: 3, name: 'Bob Wilson', email: 'bob@example.com', role: 'Manager' },
     onClick: () => alert('Row clicked!'),
-    children: (
-      <>
-        <Table.Cell>Bob Wilson</Table.Cell>
-        <Table.Cell>bob@example.com</Table.Cell>
-        <Table.Cell>Manager</Table.Cell>
-      </>
-    ),
+  },
+}
+
+export const WithAlignment: Story = {
+  args: {
+    columns: [
+      { key: 'name', render: (row: Person) => row.name, align: 'left' },
+      { key: 'email', render: (row: Person) => row.email, align: 'center' },
+      { key: 'role', render: (row: Person) => row.role, align: 'right' },
+    ],
+    data: sampleData,
+  },
+}
+
+export const WithRowHeader: Story = {
+  args: {
+    columns: [
+      { key: 'name', render: (row: Person) => row.name, isRowHeader: true },
+      { key: 'email', render: (row: Person) => row.email },
+      { key: 'role', render: (row: Person) => row.role },
+    ],
+    data: sampleData,
   },
 }
 
@@ -79,7 +101,7 @@ export const Clickable: Story = {
 const InteractiveTemplate = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null)
 
-  const rows = [
+  const rows: Person[] = [
     { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Developer' },
     { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Designer' },
     { id: 3, name: 'Bob Wilson', email: 'bob@example.com', role: 'Manager' },
@@ -95,16 +117,15 @@ const InteractiveTemplate = () => {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {rows.map((row) => (
+        {rows.map((row, index) => (
           <TableRow
             key={row.id}
+            columns={defaultColumns}
+            data={row}
+            rowIndex={index}
             selected={selectedId === row.id}
             onClick={() => setSelectedId(row.id)}
-          >
-            <Table.Cell>{row.name}</Table.Cell>
-            <Table.Cell>{row.email}</Table.Cell>
-            <Table.Cell>{row.role}</Table.Cell>
-          </TableRow>
+          />
         ))}
       </Table.Body>
     </Table.Root>
@@ -116,38 +137,33 @@ export const Interactive: Story = {
   decorators: [], // Remove default decorator
 }
 
-// Multiple rows example
-const MultipleRowsTemplate = () => (
-  <Table.Root variant="surface">
-    <Table.Header>
-      <Table.Row>
-        <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
-        <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
-        <Table.ColumnHeaderCell>Role</Table.ColumnHeaderCell>
-      </Table.Row>
-    </Table.Header>
-    <Table.Body>
-      <TableRow>
-        <Table.Cell>Regular row</Table.Cell>
-        <Table.Cell>regular@example.com</Table.Cell>
-        <Table.Cell>User</Table.Cell>
-      </TableRow>
-      <TableRow selected>
-        <Table.Cell>Selected row</Table.Cell>
-        <Table.Cell>selected@example.com</Table.Cell>
-        <Table.Cell>Admin</Table.Cell>
-      </TableRow>
-      <TableRow onClick={() => {}}>
-        <Table.Cell>Clickable row</Table.Cell>
-        <Table.Cell>clickable@example.com</Table.Cell>
-        <Table.Cell>Guest</Table.Cell>
-      </TableRow>
-    </Table.Body>
-  </Table.Root>
-)
+// Multiple rows example showing different states
+const MultipleRowsTemplate = () => {
+  const rows: Person[] = [
+    { id: 1, name: 'Regular row', email: 'regular@example.com', role: 'User' },
+    { id: 2, name: 'Selected row', email: 'selected@example.com', role: 'Admin' },
+    { id: 3, name: 'Clickable row', email: 'clickable@example.com', role: 'Guest' },
+  ]
+
+  return (
+    <Table.Root variant="surface">
+      <Table.Header>
+        <Table.Row>
+          <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Role</Table.ColumnHeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        <TableRow columns={defaultColumns} data={rows[0]} rowIndex={0} />
+        <TableRow columns={defaultColumns} data={rows[1]} rowIndex={1} selected />
+        <TableRow columns={defaultColumns} data={rows[2]} rowIndex={2} onClick={() => {}} />
+      </Table.Body>
+    </Table.Root>
+  )
+}
 
 export const MultipleRows: Story = {
   render: () => <MultipleRowsTemplate />,
   decorators: [], // Remove default decorator
 }
-

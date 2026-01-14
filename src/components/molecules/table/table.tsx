@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 
 import { TableCell } from '~/components/atoms/table-cell/table-cell'
 import { TableRow } from '~/components/atoms/table-row/table-row'
+import type { TableRowColumn } from '~/components/atoms/table-row/table-row.types'
 import { TablePagination } from '~/components/molecules/table-pagination/table-pagination'
 import { cn } from '~/lib/utils'
 
@@ -33,6 +34,18 @@ export function Table<T>({
     // If pagination is controlled externally, data should already be sliced
     return data
   }, [data, pagination])
+
+  // Convert TableColumn to TableRowColumn (omit header and width which are header-only props)
+  const rowColumns: TableRowColumn<T>[] = useMemo(
+    () =>
+      columns.map((col) => ({
+        key: col.key,
+        render: col.render,
+        align: col.align,
+        isRowHeader: col.isRowHeader,
+      })),
+    [columns],
+  )
 
   const renderHeader = () => (
     <RadixTable.Header>
@@ -69,19 +82,12 @@ export function Table<T>({
         displayData.map((row, rowIndex) => (
           <TableRow
             key={getRowKey(row, rowIndex)}
+            columns={rowColumns}
+            data={row}
+            rowIndex={rowIndex}
             onClick={onRowClick ? () => onRowClick(row, rowIndex) : undefined}
             selected={isRowSelected?.(row, rowIndex)}
-          >
-            {columns.map((column, colIndex) => (
-              <TableCell
-                key={column.key}
-                variant={column.isRowHeader && colIndex === 0 ? 'rowHeader' : 'cell'}
-                align={column.align}
-              >
-                {column.render(row, rowIndex)}
-              </TableCell>
-            ))}
-          </TableRow>
+          />
         ))
       )}
     </RadixTable.Body>

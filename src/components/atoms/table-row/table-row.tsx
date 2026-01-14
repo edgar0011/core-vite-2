@@ -1,22 +1,28 @@
-import { Table } from '@radix-ui/themes'
-import type { CSSProperties, FC } from 'react'
+import './table-row.module.scss'
 
+import { Table } from '@radix-ui/themes'
+import type { CSSProperties } from 'react'
+
+import { TableCell } from '~/components/atoms/table-cell/table-cell'
 import { cn } from '~/lib/utils'
 
-import './table-row.module.scss'
 import type { TableRowProps } from './table-row.types'
+import { tableRowVariants } from './table-row.variants'
 
 /**
- * TableRow component - A table row wrapper using Radix UI primitives.
+ * TableRow component - A table row that renders TableCell components
+ * based on column configuration and row data.
  */
-export const TableRow: FC<TableRowProps> = ({
-  children,
+export function TableRow<T>({
+  columns,
+  data,
+  rowIndex = 0,
   className,
-  selected,
+  selected = false,
   onClick,
   style,
   ...props
-}) => {
+}: TableRowProps<T>) {
   const selectedStyle: CSSProperties | undefined = selected
     ? {
         backgroundColor: 'var(--accent-3)',
@@ -25,13 +31,21 @@ export const TableRow: FC<TableRowProps> = ({
 
   return (
     <Table.Row
-      className={cn(onClick && 'cursor-pointer', className)}
+      className={cn(tableRowVariants({ selected, clickable: Boolean(onClick) }), className)}
       onClick={onClick}
       style={{ ...selectedStyle, ...style }}
       data-selected={selected || undefined}
       {...props}
     >
-      {children}
+      {columns.map((column, colIndex) => (
+        <TableCell
+          key={column.key}
+          variant={column.isRowHeader && colIndex === 0 ? 'rowHeader' : 'cell'}
+          align={column.align}
+        >
+          {column.render(data, rowIndex)}
+        </TableCell>
+      ))}
     </Table.Row>
   )
 }
@@ -39,4 +53,3 @@ export const TableRow: FC<TableRowProps> = ({
 TableRow.displayName = 'TableRow'
 
 export type TableRowType = typeof TableRow
-

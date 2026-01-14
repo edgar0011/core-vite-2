@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 
 import { Table } from './table'
-import type { TableColumn, TableProps } from './table.types'
+import type { TableColumn } from './table.types'
 
 // Sample data types
 type User = {
@@ -47,7 +47,9 @@ const userColumns: TableColumn<User>[] = [
     key: 'status',
     header: 'Status',
     render: (row) => (
-      <Badge color={row.status === 'active' ? 'green' : row.status === 'pending' ? 'yellow' : 'red'}>
+      <Badge
+        color={row.status === 'active' ? 'green' : row.status === 'pending' ? 'yellow' : 'red'}
+      >
         {row.status}
       </Badge>
     ),
@@ -186,4 +188,3 @@ export const GhostVariant: Story = {
     variant: 'ghost',
   },
 }
-

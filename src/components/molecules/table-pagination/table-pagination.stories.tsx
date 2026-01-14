@@ -139,4 +139,3 @@ export const NavigationOnly: Story = {
     onPageChange: (page) => console.log('Page changed to:', page),
   },
 }
-

@@ -57,4 +57,3 @@ export type TableProps<T> = {
   /** Visual variant */
   variant?: 'surface' | 'ghost'
 } & Omit<RadixTableRootProps, 'children'>
-

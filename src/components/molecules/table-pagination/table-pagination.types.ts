@@ -18,4 +18,3 @@ export type TablePaginationProps = {
   /** Whether to show the page size selector */
   showPageSizeSelector?: boolean
 }
-

@@ -4,6 +4,7 @@ import type { FC } from 'react'
 import { cn } from '~/lib/utils'
 
 import type { TableCellProps } from './table-cell.types'
+import { tableCellVariants } from './table-cell.variants'
 
 /**
  * TableCell component - A flexible table cell that can render as a regular cell,
@@ -16,15 +17,7 @@ export const TableCell: FC<TableCellProps> = ({
   align,
   ...props
 }) => {
-  const alignmentClass = align
-    ? {
-        left: 'text-left',
-        center: 'text-center',
-        right: 'text-right',
-      }[align]
-    : undefined
-
-  const combinedClassName = cn(alignmentClass, className)
+  const combinedClassName = cn(tableCellVariants({ align }), className)
 
   switch (variant) {
     case 'columnHeader':
@@ -52,4 +45,3 @@ export const TableCell: FC<TableCellProps> = ({
 TableCell.displayName = 'TableCell'
 
 export type TableCellType = typeof TableCell
-

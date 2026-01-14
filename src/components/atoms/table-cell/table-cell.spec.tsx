@@ -87,4 +87,3 @@ describe('components/atoms/table-cell/TableCell', () => {
     expect(screen.getByText('Child element')).toBeInTheDocument()
   })
 })
-

@@ -140,4 +140,3 @@ describe('components/molecules/table-pagination/TablePagination', () => {
     expect(ellipses.length).toBeGreaterThan(0)
   })
 })
-

@@ -20,4 +20,3 @@ export type TableCellProps = PropsWithChildren<{
   rowSpan?: number
 }> &
   (RadixCellProps | RadixColumnHeaderCellProps | RadixRowHeaderCellProps)
-
