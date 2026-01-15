@@ -16,6 +16,8 @@
 - 🧪 **Vitest** - Fast unit testing with coverage reporting
 - 📚 **Storybook** - Component development and documentation
 - 🎨 **Radix UI** - Accessible component primitives
+- 📝 **React Hook Form** - Performant form handling with validation
+- 🎛️ **CVA** - Class Variance Authority for type-safe component variants
 - 🎯 **ESLint 9** - Modern flat config with comprehensive rules
 - 💅 **Prettier** - Consistent code formatting with plugins
 - 🔧 **Plop** - Component scaffolding and code generation
@@ -231,6 +233,72 @@ import './my-component.scss'
 export const MyComponent = () => <div className="my-component">Content</div>
 ```
 
+### CVA (Class Variance Authority)
+
+CVA provides type-safe variant management for components:
+
+```typescript
+import { cva, type VariantProps } from 'class-variance-authority'
+
+const buttonVariants = cva('inline-flex items-center justify-center rounded-md', {
+  variants: {
+    variant: {
+      primary: 'bg-blue-500 text-white hover:bg-blue-600',
+      secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
+      danger: 'bg-red-500 text-white hover:bg-red-600',
+    },
+    size: {
+      sm: 'h-8 px-3 text-sm',
+      md: 'h-10 px-4 text-base',
+      lg: 'h-12 px-6 text-lg',
+    },
+  },
+  defaultVariants: {
+    variant: 'primary',
+    size: 'md',
+  },
+})
+
+type ButtonProps = VariantProps<typeof buttonVariants> & { className?: string }
+
+export const Button = ({ variant, size, className }: ButtonProps) => (
+  <button className={buttonVariants({ variant, size, className })}>Click me</button>
+)
+```
+
+### React Hook Form
+
+React Hook Form for performant form handling:
+
+```typescript
+import { useForm } from 'react-hook-form'
+
+interface FormData {
+  email: string
+  password: string
+}
+
+export const LoginForm = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
+
+  const onSubmit = (data: FormData) => {
+    console.log(data)
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('email', { required: 'Email is required' })} />
+      {errors.email && <span>{errors.email.message}</span>}
+
+      <input type="password" {...register('password', { required: true })} />
+      {errors.password && <span>Password is required</span>}
+
+      <button type="submit">Login</button>
+    </form>
+  )
+}
+```
+
 ## 🔧 Configuration
 
 ### TypeScript
@@ -294,8 +362,13 @@ Modern flat config with:
 ### UI & Styling
 - **Radix UI Themes 3.2.1** - Component primitives
 - **Tailwind CSS** - Utility-first CSS
+- **CVA (class-variance-authority)** - Type-safe component variant management
 - **Sass 1.97.1** - CSS preprocessor
 - **clsx** & **tailwind-merge** - Class utilities
+
+### Forms
+- **React Hook Form** - Performant, flexible form handling
+- **@hookform/resolvers** - Validation schema integration
 
 ### Documentation
 - **Storybook 10.1.11** - Component docs
