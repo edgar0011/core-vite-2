@@ -1,4 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
+import { Theme } from '@radix-ui/themes'
 import type { RenderOptions, RenderResult } from '@testing-library/react'
 import { configure, render, waitFor } from '@testing-library/react'
 import type { FC, PropsWithChildren, ReactElement } from 'react'
@@ -7,7 +8,11 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 type Props = PropsWithChildren<unknown>
 
 const AllTheProviders: FC<Props> = ({ children }: Props): ReactElement<unknown> => {
-  return (<div id="unit-test-wrapper">{children}</div>) as ReactElement<unknown>
+  return (
+    <Theme>
+      <div id="unit-test-wrapper">{children}</div>
+    </Theme>
+  ) as ReactElement<unknown>
 }
 
 const customRender = (ui: ReactElement, options?: RenderOptions): RenderResult =>

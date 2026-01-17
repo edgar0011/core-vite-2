@@ -33,12 +33,26 @@ if (typeof window !== 'undefined') {
     })),
   })
 
+  // Mock ResizeObserver as a proper class for Radix UI components
+  class MockResizeObserver {
+    observe = vi.fn()
+    unobserve = vi.fn()
+    disconnect = vi.fn()
+  }
+
   Object.defineProperty(window, 'ResizeObserver', {
     writable: true,
-    value: vi.fn().mockImplementation(() => ({
-      disconnect: vi.fn(),
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-    })),
+    value: MockResizeObserver,
   })
+
+  // Mock pointer capture methods for Radix UI
+  if (!Element.prototype.hasPointerCapture) {
+    Element.prototype.hasPointerCapture = vi.fn(() => false)
+  }
+  if (!Element.prototype.setPointerCapture) {
+    Element.prototype.setPointerCapture = vi.fn()
+  }
+  if (!Element.prototype.releasePointerCapture) {
+    Element.prototype.releasePointerCapture = vi.fn()
+  }
 }
