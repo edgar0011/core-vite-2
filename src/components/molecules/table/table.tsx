@@ -49,7 +49,7 @@ export function Table<T>({
 
   const renderHeader = () => (
     <RadixTable.Header>
-      <RadixTable.Row>
+      <TableRow>
         {columns.map((column) => (
           <TableCell
             key={column.key}
@@ -60,24 +60,24 @@ export function Table<T>({
             {column.header}
           </TableCell>
         ))}
-      </RadixTable.Row>
+      </TableRow>
     </RadixTable.Header>
   )
 
   const renderBody = () => (
     <RadixTable.Body>
       {isLoading ? (
-        <RadixTable.Row>
+        <TableRow>
           <TableCell colSpan={columns.length} align="center">
             <div className="py-8 text-gray-500">Loading...</div>
           </TableCell>
-        </RadixTable.Row>
+        </TableRow>
       ) : displayData.length === 0 ? (
-        <RadixTable.Row>
+        <TableRow>
           <TableCell colSpan={columns.length} align="center">
             <div className="py-8 text-gray-500">{emptyMessage}</div>
           </TableCell>
-        </RadixTable.Row>
+        </TableRow>
       ) : (
         displayData.map((row, rowIndex) => (
           <TableRow

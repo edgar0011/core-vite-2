@@ -10,8 +10,10 @@ import type { TableRowProps } from './table-row.types'
 import { tableRowVariants } from './table-row.variants'
 
 /**
- * TableRow component - A table row that renders TableCell components
- * based on column configuration and row data.
+ * TableRow component - A table row that renders TableCell components.
+ * Supports two modes:
+ * 1. Column + data mode: Pass `columns` and `data` to auto-render cells
+ * 2. Children mode: Pass `children` directly (e.g., for header rows)
  */
 export function TableRow<T>({
   columns,
@@ -21,6 +23,7 @@ export function TableRow<T>({
   selected = false,
   onClick,
   style,
+  children,
   ...props
 }: TableRowProps<T>) {
   const selectedStyle: CSSProperties | undefined = selected
@@ -29,6 +32,22 @@ export function TableRow<T>({
       }
     : undefined
 
+  // If children are provided, render them directly
+  if (children) {
+    return (
+      <Table.Row
+        className={cn(tableRowVariants({ selected, clickable: Boolean(onClick) }), className)}
+        onClick={onClick}
+        style={{ ...selectedStyle, ...style }}
+        data-selected={selected || undefined}
+        {...props}
+      >
+        {children}
+      </Table.Row>
+    )
+  }
+
+  // Otherwise, render cells based on columns and data
   return (
     <Table.Row
       className={cn(tableRowVariants({ selected, clickable: Boolean(onClick) }), className)}
@@ -37,7 +56,7 @@ export function TableRow<T>({
       data-selected={selected || undefined}
       {...props}
     >
-      {columns.map((column, colIndex) => (
+      {columns?.map((column, colIndex) => (
         <TableCell
           key={column.key}
           variant={column.isRowHeader && colIndex === 0 ? 'rowHeader' : 'cell'}
@@ -45,7 +64,7 @@ export function TableRow<T>({
           columnId={column.key}
           rowId={rowIndex}
         >
-          {column.render(data, rowIndex)}
+          {column.render(data as T, rowIndex)}
         </TableCell>
       ))}
     </Table.Row>

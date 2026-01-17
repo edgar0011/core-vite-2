@@ -14,13 +14,32 @@ export type TableRowColumn<T> = {
   isRowHeader?: boolean
 }
 
-export type TableRowProps<T = unknown> = {
+/** Props when using columns + data pattern */
+type TableRowWithColumnsProps<T> = {
   /** Column configuration */
   columns: TableRowColumn<T>[]
   /** Row data */
   data: T
   /** Row index for render functions */
   rowIndex?: number
+  /** Children not allowed when using columns */
+  children?: never
+}
+
+/** Props when using children directly (e.g., for header rows) */
+type TableRowWithChildrenProps = {
+  /** Direct children (TableCell components) */
+  children: ReactNode
+  /** Columns not allowed when using children */
+  columns?: never
+  /** Data not allowed when using children */
+  data?: never
+  /** Row index not needed when using children */
+  rowIndex?: never
+}
+
+/** Common props for all TableRow variants */
+type TableRowCommonProps = {
   /** Additional CSS class name */
   className?: string
   /** Whether the row is selected/highlighted */
@@ -28,3 +47,7 @@ export type TableRowProps<T = unknown> = {
   /** Click handler for the row */
   onClick?: () => void
 } & Omit<RadixRowProps, 'children'>
+
+export type TableRowProps<T = unknown> =
+  | (TableRowWithColumnsProps<T> & TableRowCommonProps)
+  | (TableRowWithChildrenProps & TableRowCommonProps)
