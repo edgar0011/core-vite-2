@@ -1,7 +1,7 @@
-import { render, screen } from '~/utils/test/test-utils'
+import { fireEvent, render, screen, waitFor } from '~/utils/test/test-utils'
 
 import { Select } from './select'
-import type { SelectOption } from './select.types'
+import type { SelectGroup, SelectOption } from './select.types'
 
 const simpleOptions: SelectOption[] = [
   { value: 'apple', label: 'Apple' },
@@ -9,66 +9,200 @@ const simpleOptions: SelectOption[] = [
   { value: 'cherry', label: 'Cherry' },
 ]
 
+const groupedOptions: SelectGroup[] = [
+  {
+    label: 'Fruits',
+    options: [
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ],
+  },
+  {
+    label: 'Vegetables',
+    options: [{ value: 'carrot', label: 'Carrot' }],
+  },
+]
+
+const openDropdown = () => fireEvent.click(screen.getByRole('button'))
+
+const typeInInput = (text: string) => {
+  fireEvent.change(screen.getByRole('combobox'), { target: { value: text } })
+}
+
 describe('components/atoms/select/Select', () => {
-  it('renders with placeholder', () => {
-    render(<Select options={simpleOptions} placeholder="Choose a fruit" />)
+  describe('input element', () => {
+    it('renders with placeholder', () => {
+      render(<Select options={simpleOptions} placeholder="Choose a fruit" />)
 
-    expect(screen.getByText('Choose a fruit')).toBeInTheDocument()
+      expect(screen.getByPlaceholderText('Choose a fruit')).toBeInTheDocument()
+    })
+
+    it('renders input with combobox role', () => {
+      render(<Select options={simpleOptions} aria-label="Fruit select" />)
+
+      expect(screen.getByRole('combobox', { name: 'Fruit select' })).toBeInTheDocument()
+    })
+
+    it('applies custom className to input', () => {
+      render(<Select options={simpleOptions} className="custom-input" aria-label="Select" />)
+
+      expect(screen.getByRole('combobox')).toHaveClass('custom-input')
+    })
+
+    it('applies id to input', () => {
+      render(<Select options={simpleOptions} id="my-select" aria-label="Select" />)
+
+      expect(screen.getByRole('combobox')).toHaveAttribute('id', 'my-select')
+    })
+
+    it('disables the input when disabled prop is passed', () => {
+      render(<Select options={simpleOptions} disabled aria-label="Select" />)
+
+      expect(screen.getByRole('combobox')).toBeDisabled()
+    })
   })
 
-  it('renders trigger with combobox role', () => {
-    render(<Select options={simpleOptions} aria-label="Fruit select" />)
+  describe('value display', () => {
+    it('marks the controlled value as selected in the dropdown', async () => {
+      render(<Select options={simpleOptions} value="banana" aria-label="Select" />)
 
-    expect(screen.getByRole('combobox', { name: 'Fruit select' })).toBeInTheDocument()
+      openDropdown()
+
+      await waitFor(() =>
+        expect(screen.getByRole('option', { name: 'Banana' })).toHaveAttribute(
+          'aria-selected',
+          'true',
+        ),
+      )
+    })
+
+    it('marks the default value as selected in the dropdown', async () => {
+      render(<Select options={simpleOptions} defaultValue="apple" aria-label="Select" />)
+
+      openDropdown()
+
+      await waitFor(() =>
+        expect(screen.getByRole('option', { name: 'Apple' })).toHaveAttribute(
+          'aria-selected',
+          'true',
+        ),
+      )
+    })
   })
 
-  it('applies custom className to trigger', () => {
-    render(<Select options={simpleOptions} className="custom-trigger" aria-label="Select" />)
+  describe('dropdown', () => {
+    it('opens and shows all options on trigger click', async () => {
+      render(<Select options={simpleOptions} aria-label="Select" />)
 
-    const trigger = screen.getByRole('combobox')
-    expect(trigger.className).toContain('custom-trigger')
+      openDropdown()
+
+      await waitFor(() => {
+        expect(screen.getByRole('option', { name: 'Apple' })).toBeInTheDocument()
+        expect(screen.getByRole('option', { name: 'Banana' })).toBeInTheDocument()
+        expect(screen.getByRole('option', { name: 'Cherry' })).toBeInTheDocument()
+      })
+    })
+
+    it('filters options as the user types', async () => {
+      render(<Select options={simpleOptions} aria-label="Select" />)
+
+      openDropdown()
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Apple' })).toBeInTheDocument())
+
+      typeInInput('ban')
+
+      await waitFor(() => {
+        expect(screen.getByRole('option', { name: 'Banana' })).toBeInTheDocument()
+        expect(screen.queryByRole('option', { name: 'Apple' })).not.toBeInTheDocument()
+        expect(screen.queryByRole('option', { name: 'Cherry' })).not.toBeInTheDocument()
+      })
+    })
+
+    it('shows "No options found." when filter matches nothing', async () => {
+      render(<Select options={simpleOptions} aria-label="Select" />)
+
+      openDropdown()
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Apple' })).toBeInTheDocument())
+
+      typeInInput('xyz')
+
+      await waitFor(() => {
+        expect(screen.getByText('No options found.')).toBeInTheDocument()
+      })
+    })
+
+    it('restores all options when the input is cleared', async () => {
+      render(<Select options={simpleOptions} aria-label="Select" />)
+
+      openDropdown()
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Apple' })).toBeInTheDocument())
+
+      typeInInput('ban')
+      await waitFor(() =>
+        expect(screen.queryByRole('option', { name: 'Apple' })).not.toBeInTheDocument(),
+      )
+
+      typeInInput('')
+
+      await waitFor(() => {
+        expect(screen.getByRole('option', { name: 'Apple' })).toBeInTheDocument()
+        expect(screen.getByRole('option', { name: 'Cherry' })).toBeInTheDocument()
+      })
+    })
   })
 
-  it('renders with controlled value', () => {
-    render(<Select options={simpleOptions} value="banana" aria-label="Select" />)
+  describe('grouped options', () => {
+    it('renders group labels', async () => {
+      render(<Select options={groupedOptions} aria-label="Select" />)
 
-    expect(screen.getByText('Banana')).toBeInTheDocument()
+      openDropdown()
+
+      await waitFor(() => {
+        expect(screen.getByText('Fruits')).toBeInTheDocument()
+        expect(screen.getByText('Vegetables')).toBeInTheDocument()
+      })
+    })
+
+    it('renders options within groups', async () => {
+      render(<Select options={groupedOptions} aria-label="Select" />)
+
+      openDropdown()
+
+      await waitFor(() => {
+        expect(screen.getByRole('option', { name: 'Apple' })).toBeInTheDocument()
+        expect(screen.getByRole('option', { name: 'Banana' })).toBeInTheDocument()
+        expect(screen.getByRole('option', { name: 'Carrot' })).toBeInTheDocument()
+      })
+    })
+
+    it('filters options across groups', async () => {
+      render(<Select options={groupedOptions} aria-label="Select" />)
+
+      openDropdown()
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Apple' })).toBeInTheDocument())
+
+      typeInInput('carrot')
+
+      await waitFor(() => {
+        expect(screen.getByRole('option', { name: 'Carrot' })).toBeInTheDocument()
+        expect(screen.queryByRole('option', { name: 'Apple' })).not.toBeInTheDocument()
+        expect(screen.queryByText('Fruits')).not.toBeInTheDocument()
+      })
+    })
   })
 
-  it('applies size variants', () => {
-    const { rerender } = render(<Select options={simpleOptions} size="sm" aria-label="Select" />)
+  describe('callbacks', () => {
+    it('calls onValueChange when an option is selected', async () => {
+      const onValueChange = vi.fn()
+      render(<Select options={simpleOptions} onValueChange={onValueChange} aria-label="Select" />)
 
-    // Radix Themes uses data attributes for size, check the trigger renders
-    const trigger = screen.getByRole('combobox')
-    expect(trigger).toBeInTheDocument()
+      openDropdown()
 
-    rerender(<Select options={simpleOptions} size="lg" aria-label="Select" />)
-    expect(screen.getByRole('combobox')).toBeInTheDocument()
-  })
+      await waitFor(() => expect(screen.getByRole('option', { name: 'Apple' })).toBeInTheDocument())
 
-  it('applies error state styling', () => {
-    render(<Select options={simpleOptions} error aria-label="Select" />)
+      fireEvent.click(screen.getByRole('option', { name: 'Apple' }))
 
-    // Radix Themes uses color prop for error state
-    const trigger = screen.getByRole('combobox')
-    expect(trigger).toBeInTheDocument()
-  })
-
-  it('applies id to trigger', () => {
-    render(<Select options={simpleOptions} id="my-select" aria-label="Select" />)
-
-    expect(screen.getByRole('combobox')).toHaveAttribute('id', 'my-select')
-  })
-
-  it('renders default value text', () => {
-    render(<Select options={simpleOptions} defaultValue="apple" aria-label="Select" />)
-
-    expect(screen.getByText('Apple')).toBeInTheDocument()
-  })
-
-  it('renders disabled state from root props', () => {
-    render(<Select options={simpleOptions} disabled aria-label="Select" />)
-
-    expect(screen.getByRole('combobox')).toBeDisabled()
+      expect(onValueChange.mock.calls[0][0]).toBe('apple')
+    })
   })
 })

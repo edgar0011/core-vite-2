@@ -1,6 +1,3 @@
-import { Select } from '@radix-ui/themes'
-import type { ComponentPropsWithoutRef } from 'react'
-
 /** Option item for Select component */
 export interface SelectOption {
   /** Unique value for the option */
@@ -20,24 +17,29 @@ export interface SelectGroup {
 }
 
 /** Props for the Select component */
-export interface SelectProps extends Omit<
-  ComponentPropsWithoutRef<typeof Select.Root>,
-  'children' | 'size'
-> {
+export interface SelectProps {
   /** Array of options or grouped options */
   options: SelectOption[] | SelectGroup[]
   /** Placeholder text when no value is selected */
   placeholder?: string
-  /** Additional class name for the trigger */
+  /** Additional class name for the input */
   className?: string
   /** Size variant */
   size?: 'sm' | 'md' | 'lg'
   /** Whether the select is in an error state */
   error?: boolean
-  /** ID for the trigger element */
+  /** ID for the input element */
   id?: string
   /** aria-label for accessibility */
   'aria-label'?: string
-  /** Trigger variant from Radix Themes */
-  variant?: 'classic' | 'surface' | 'soft' | 'ghost'
+  /** The selected value (controlled) */
+  value?: string | null
+  /** The default selected value (uncontrolled) */
+  defaultValue?: string | null
+  /** Callback when the selected value changes */
+  onValueChange?: (value: string | null) => void
+  /** Whether the select is disabled */
+  disabled?: boolean
+  /** Name for form submission */
+  name?: string
 }

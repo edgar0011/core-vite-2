@@ -1,4 +1,5 @@
 import '@radix-ui/themes/styles.css'
+import '../src/index.css'
 
 import { Theme, ThemePanel } from '@radix-ui/themes'
 import type { Preview } from '@storybook/react'

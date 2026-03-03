@@ -46,8 +46,9 @@ const meta: Meta<typeof Select> = {
     notes: `
 # Select Component
 
-A dropdown select component built on Radix UI Select primitives.
+A filterable dropdown combobox built on Base UI Combobox primitives.
 Supports flat options, grouped options, and various size variants.
+Type in the input to filter the available options.
     `,
   },
   tags: ['autodocs'],
@@ -121,7 +122,7 @@ export const DisabledOptions: Story = {
 
 // Controlled example
 const ControlledTemplate = () => {
-  const [value, setValue] = useState<string>('apple')
+  const [value, setValue] = useState<string | null>('apple')
 
   return (
     <div className="flex flex-col gap-4">
@@ -131,7 +132,7 @@ const ControlledTemplate = () => {
         onValueChange={setValue}
         aria-label="Controlled select"
       />
-      <p className="text-sm text-gray-600">Selected value: {value}</p>
+      <p className="text-sm text-gray-600">Selected value: {value ?? 'none'}</p>
     </div>
   )
 }
@@ -150,7 +151,7 @@ const ManyOptionsTemplate = () => {
   return (
     <Select
       options={manyOptions}
-      placeholder="Select from 100 options..."
+      placeholder="Type to filter 100 options..."
       aria-label="Many options select"
     />
   )
