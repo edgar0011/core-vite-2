@@ -1,13 +1,13 @@
-import { Button, Heading, Text } from '@radix-ui/themes'
+import { Button as EsKitButton, useToggle } from '@e1011/es-kit'
+import { Button } from '@radix-ui/themes'
 import { type FC } from 'react'
 
+import { Heading, Text } from '~/components/atoms/typography'
 import { BoxLayout } from '~/components/es-kit/components/container/layoutBox/LayoutBox'
 import { cn } from '~/lib/utils'
 
 import classes from './main.module.scss'
 import type { MainProps } from './main.types'
-
-import { useToggle, Button as EsKitButton } from '@e1011/es-kit'
 
 /**
  * Main component
@@ -21,7 +21,6 @@ export const Main: FC<MainProps> = ({
   children,
   ...props
 }) => {
-
   const [skipped, toggleSkip] = useToggle(true)
 
   return (

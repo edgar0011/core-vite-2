@@ -1,6 +1,7 @@
-import { Button, Flex, Select, Text } from '@radix-ui/themes'
+import { Button, Flex, Select } from '@radix-ui/themes'
 import type { FC } from 'react'
 
+import { Text } from '~/components/atoms/typography'
 import { cn } from '~/lib/utils'
 
 import type { TablePaginationProps } from './table-pagination.types'
@@ -106,7 +107,7 @@ export const TablePagination: FC<TablePaginationProps> = ({
     >
       {/* Items info */}
       {showItemsInfo && (
-        <Text size="2" color="gray">
+        <Text size="2" className="text-gray-500">
           Showing {startItem} to {endItem} of {totalItems} items
         </Text>
       )}
@@ -114,7 +115,7 @@ export const TablePagination: FC<TablePaginationProps> = ({
       {/* Page size selector */}
       {showPageSizeSelector && onPageSizeChange && (
         <Flex align="center" gap="2">
-          <Text size="2" color="gray">
+          <Text size="2" className="text-gray-500">
             Rows per page:
           </Text>
           <Select.Root value={String(pageSize)} onValueChange={handlePageSizeChange}>

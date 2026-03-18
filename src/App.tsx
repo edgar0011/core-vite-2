@@ -1,8 +1,10 @@
 import './sandbox/decorators/decorator-example.js'
 import './sandbox/decorators/decorator-example-ts.ts'
 
-import { Heading, Link } from '@radix-ui/themes'
+import { Link } from '@radix-ui/themes'
 import { Outlet } from 'react-router'
+
+import { Heading } from '~/components/atoms/typography'
 
 import { BoxLayout, LayoutBox } from './components/es-kit/components/container/layoutBox/LayoutBox'
 import { Box } from './components/molecules/box/box.tsx'
@@ -41,7 +43,9 @@ function App() {
           </LayoutBox>
 
           <LayoutBox>
-            <Link href="https://www.radix-ui.com/" target="_blank">Hello world!</Link>
+            <Link href="https://www.radix-ui.com/" target="_blank">
+              Hello world!
+            </Link>
           </LayoutBox>
         </div>
         <Outlet />

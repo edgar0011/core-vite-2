@@ -1,6 +1,7 @@
-import { Button, Heading, Text } from '@radix-ui/themes'
+import { Button } from '@radix-ui/themes'
 import { type FC } from 'react'
 
+import { Heading, Text } from '~/components/atoms/typography'
 import { BoxLayout } from '~/components/es-kit/components/container/layoutBox/LayoutBox'
 import { cn } from '~/lib/utils'
 
