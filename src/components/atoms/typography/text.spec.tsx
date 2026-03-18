@@ -1,3 +1,5 @@
+import { createRef } from 'react'
+
 import { render, screen } from '~/utils/test/test-utils'
 
 import { Text } from './text'
@@ -73,7 +75,7 @@ describe('components/atoms/typography/Text', () => {
   })
 
   it('forwards ref', () => {
-    const ref = { current: null } as React.RefObject<HTMLElement>
+    const ref = createRef<HTMLElement>()
     render(<Text ref={ref}>Content</Text>)
 
     expect(ref.current).toBeInstanceOf(HTMLSpanElement)
