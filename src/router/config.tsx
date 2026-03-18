@@ -4,9 +4,11 @@ import App from '~/App'
 import { Examples } from '~/components/routes/examples/examples'
 import { Main } from '~/components/routes/main/main'
 
+export const configBasePath = 'CORE_VITE_CONFIG_BASE_PATH'
+
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: `/${configBasePath}`,
     Component: App,
     children: [
       {

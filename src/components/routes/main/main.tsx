@@ -7,6 +7,8 @@ import { cn } from '~/lib/utils'
 import classes from './main.module.scss'
 import type { MainProps } from './main.types'
 
+import { useToggle, Button as EsKitButton } from '@e1011/es-kit'
+
 /**
  * Main component
  */
@@ -19,6 +21,9 @@ export const Main: FC<MainProps> = ({
   children,
   ...props
 }) => {
+
+  const [skipped, toggleSkip] = useToggle(true)
+
   return (
     <BoxLayout column wFull className={cn('', className, classes.main)} {...props}>
       <Heading as="h1">{title}</Heading>
@@ -28,6 +33,8 @@ export const Main: FC<MainProps> = ({
       {children}
 
       <Button onClick={onButtonClick}>{buttonLabel}</Button>
+
+      <EsKitButton onClick={toggleSkip}>{skipped ? 'Skip' : 'Unskip'}</EsKitButton>
     </BoxLayout>
   )
 }

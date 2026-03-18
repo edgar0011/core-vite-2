@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -10,6 +11,7 @@
     "lint:quiet": "yarn lint --quiet",
     "lint:fix": "yarn lint --fix",
     "preview": "vite preview",
+    "start": "vite preview",
     "storybook": "storybook dev -p 6006",
     "plop": "plop",
     "tsc": "tsc",
@@ -17,8 +19,10 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "prepush": "yarn lint && yarn test:coverage && yarn tsc",
-    "check": "yarn lint:fix && yarn test:coverage && yarn tsc",
-    "build-storybook": "storybook build"
+    "validate": "yarn lint:fix && yarn test:coverage && yarn tsc",
+    "build-storybook": "storybook build",
+    "docker:build": "docker build . -t edgar0011/core-vite-2-app",
+    "docker:run": "docker run -p 8080:3000  edgar0011/core-vite-2-app"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
@@ -81,6 +85,8 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1",
+    "vite-plugin-html": "^3.2.2",
+    "vite-plugin-replace": "^0.1.1",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.0.18",
     "whatwg-fetch": "^3.6.20"
