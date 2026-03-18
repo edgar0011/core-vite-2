@@ -2,34 +2,35 @@
 
 > A modern, production-ready React 19 boilerplate with comprehensive tooling for building scalable web applications.
 
-[![React](https://img.shields.io/badge/React-19.2.0-61dafb?logo=react)](https://react.dev/)
+[![React](https://img.shields.io/badge/React-19.2.4-61dafb?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178c6?logo=typescript)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-7.2.4-646cff?logo=vite)](https://vitejs.dev/)
-[![Vitest](https://img.shields.io/badge/Vitest-4.0.16-6e9f18?logo=vitest)](https://vitest.dev/)
-[![Storybook](https://img.shields.io/badge/Storybook-10.1.11-ff4785?logo=storybook)](https://storybook.js.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.3.1-646cff?logo=vite)](https://vitejs.dev/)
+[![Vitest](https://img.shields.io/badge/Vitest-4.0.18-6e9f18?logo=vitest)](https://vitest.dev/)
+[![Storybook](https://img.shields.io/badge/Storybook-10.2.14-ff4785?logo=storybook)](https://storybook.js.org/)
 
-## ✨ Features
+## Features
 
-- ⚡️ **React 19** with React Compiler for automatic optimizations
-- 🚀 **Vite 7** - Lightning-fast HMR and optimized builds
-- 📘 **TypeScript** - Strict type safety with ES2022 target
-- 🧪 **Vitest** - Fast unit testing with coverage reporting
-- 📚 **Storybook** - Component development and documentation
-- 🎨 **Radix UI** - Accessible component primitives
-- 📝 **React Hook Form** - Performant form handling with validation
-- 🎛️ **CVA** - Class Variance Authority for type-safe component variants
-- 🎯 **ESLint 9** - Modern flat config with comprehensive rules
-- 💅 **Prettier** - Consistent code formatting with plugins
-- 🔧 **Plop** - Component scaffolding and code generation
-- ♿️ **A11y Testing** - Built-in accessibility testing
-- 📊 **Coverage Reports** - V8 coverage with multiple formats
+- **React 19** with React Compiler for automatic optimizations
+- **Vite 7** - Lightning-fast HMR and optimized builds
+- **TypeScript** - Strict type safety with ES2022 target
+- **Tailwind CSS v4** - CSS-first configuration via `@import 'tailwindcss'`
+- **Vitest** - Fast unit testing with coverage reporting
+- **Storybook 10** - Component development and documentation
+- **Radix UI** - Accessible component primitives with theme bridging
+- **Base UI** - Headless unstyled components (`@base-ui/react`)
+- **React Hook Form** - Performant form handling with Zod validation
+- **CVA** - Class Variance Authority for type-safe component variants
+- **ESLint 9** - Modern flat config with comprehensive rules
+- **Prettier** - Consistent code formatting with plugins
+- **Plop** - Component scaffolding (standard + headless generators)
+- **Docker** - Production-ready Dockerfile (Node 24 Alpine)
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- Node.js 18+
-- npm, yarn, or pnpm
+- Node.js 24+
+- pnpm (recommended), yarn, or npm
 
 ### Installation
 
@@ -39,103 +40,160 @@ git clone <your-repo-url>
 cd core-vite-2
 
 # Install dependencies
-npm install
-# or
-yarn install
+pnpm install
 
 # Start development server
-npm run dev
-# or
-yarn dev
+pnpm dev
 ```
 
-Visit [http://localhost:5173](http://localhost:5173) to see your app.
+Visit [http://localhost:3000](http://localhost:3000) to see your app.
 
-## 📜 Available Scripts
+## Available Scripts
 
 | Script | Description |
 |--------|-------------|
-| `dev` | Start Vite development server with HMR |
+| `dev` | Start Vite development server with HMR (port 3000) |
 | `build` | Type-check and build for production |
-| `preview` | Preview production build locally |
+| `preview` / `start` | Preview production build locally |
 | `lint` | Lint source files with ESLint |
 | `lint:fix` | Auto-fix linting issues |
 | `test` | Run tests once |
 | `test:watch` | Run tests in watch mode |
 | `test:coverage` | Generate coverage report |
+| `validate` | Run lint:fix, tests with coverage, and type-check |
 | `storybook` | Start Storybook on port 6006 |
 | `build-storybook` | Build Storybook for deployment |
 | `plop` | Generate new components |
 | `tsc` | Run TypeScript compiler |
 | `prepush` | Run lint, tests, and type-check (pre-push hook) |
+| `docker:build` | Build Docker image |
+| `docker:run` | Run Docker container (port 8080 -> 3000) |
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 src/
-├── components/        # Reusable components
-│   ├── es-kit/       # ES-kit components
-│   └── molecules/    # Molecular components
-├── lib/              # Utility libraries
-├── utils/            # Helper functions
-│   └── test/         # Test utilities
-├── stories/          # Storybook stories
-├── sandbox/          # Development sandbox
-│   └── decorators/   # Storybook decorators
-└── assets/           # Static assets
+├── components/
+│   ├── atoms/          # Atom components (Select, TableCell, etc.)
+│   ├── molecules/      # Molecular components (Box, Form, Table, etc.)
+│   ├── routes/         # Route-level components
+│   └── es-kit/         # ES-kit component wrappers
+├── lib/                # Utility libraries (cn(), theme provider)
+├── router/             # React Router configuration
+├── utils/
+│   └── test/           # Test utilities and custom render
+├── sandbox/            # Development sandbox & decorators
+└── assets/             # Static assets
 
 scripts/
-└── plop-templates/   # Component generation templates
+└── plop-templates/
+    └── ui/
+        ├── component/           # Standard component templates
+        └── headless-component/  # Headless component templates
 
-coverage/             # Test coverage reports
-dist/                 # Production build output
+coverage/               # Test coverage reports
+dist/                   # Production build output
 ```
 
-## 🧩 Component Generation
+## Component Generation
 
 Generate new components with Plop:
 
 ```bash
-# Interactive mode
-npm run plop
+# Interactive mode — choose between component and headless-component
+pnpm plop
 
-# With arguments
-npm run plop component -- --component "molecules/MyButton"
+# Standard component with CLI arguments
+pnpm plop component -- --component "atoms/my-button"
+
+# Headless component with view separation
+pnpm plop headless-component -- --component "molecules/my-widget"
 ```
 
-### What You Get
+### Standard Component
 
-When you run `npm run plop component -- --component "path/ComponentName"`, you'll get:
+Generates:
+- `component-name.tsx` — Component with Radix UI integration
+- `component-name.types.ts` — Type definitions
+- `component-name.stories.tsx` — Storybook story (`@storybook/react-vite`)
+- `component-name.spec.tsx` — Vitest tests
 
-- **`component-name.tsx`** - Component with Radix UI, proper typing, JSDoc comments
-- **`component-name.types.ts`** - Type definitions with proper type imports
-- **`component-name.stories.tsx`** - Storybook story with `@storybook/react-vite`
-- **`component-name.spec.tsx`** - Vitest tests with comprehensive coverage
+### Headless Component
 
-All files follow the same patterns and best practices as the Box component example! 🚀
+Generates a controller + swappable view pattern:
+- `component-name.tsx` — Headless controller (accepts `components.View` override)
+- `component-name.types.ts` — `ViewProps` + `Props` with `components` slot
+- `component-name.helpers.ts` — Helper functions
+- `views/component-name.view.tsx` — Default view using LayoutBox
+- `views/component-name.view.stories.tsx` — View story
+- `views/component-name.view.spec.tsx` — View tests
 
-### Generated Component Features
+## Theming
 
-- ✅ **Radix UI Integration** - Uses `@radix-ui/themes` components
-- ✅ **Type Safety** - Full TypeScript support with proper type imports
-- ✅ **Accessible** - Built with accessibility in mind
-- ✅ **Tested** - Includes comprehensive test suite
-- ✅ **Documented** - Storybook stories and JSDoc comments
-- ✅ **Styled** - Ready for Tailwind CSS with `cn()` utility
+### Color System
 
-## 🧪 Testing
+The app uses CSS variables in `src/index.css` bridged to Radix UI Themes:
+
+- **Light theme** (`:root`) — Greptile-inspired palette: warm off-white background (`#f1efeb`), green primary (`#107a4d`), neutral grays
+- **Dark theme** (`.dark`) — Headless UI-inspired palette: deep black background (`#0a0a0a`), sky-400 accent, neutral gray scale
+
+### Auto Dark/Light Switching
+
+The `RadixTheme` provider in `src/lib/customized-radix-theme-provider.tsx` uses `useSyncExternalStore` with `matchMedia('prefers-color-scheme: dark')` to automatically switch between light and dark themes based on the OS preference.
+
+### Radix UI Bridge
+
+All CSS variables are bridged to Radix UI Themes via `.radix-themes` overrides in `index.css`:
+- `--foreground` -> Radix text color
+- `--primary` -> Radix `--accent-9`
+- `--border` -> Radix `--gray-6`
+- `--card` -> Radix `--color-surface`, `--color-panel`
+- And more (destructive, muted, ring, radius)
+
+### Canvas Linen Texture
+
+A Greptile-style linen texture is available as a CSS utility:
+
+```html
+<div class="canvas-linen">...</div>
+```
+
+## Tailwind CSS v4
+
+This project uses Tailwind CSS v4 with **CSS-first configuration** — there is no `tailwind.config.js`.
+
+- Config via `@import 'tailwindcss'` in `src/index.css`
+- `@apply` with custom CSS variables (e.g., `@apply bg-background`) does **not** work — use `hsl(var(--background))` directly
+- Custom utilities like `.scrollbar-none` are defined at the bottom of `index.css`
+- `data-[attr]:` arbitrary variants work fine
+
+## es-kit Compatibility
+
+`@e1011/es-kit` is bundled for React 18 with the classic JSX transform (`React.createElement`). Since this project uses React 19 with the automatic JSX runtime, a shim is required:
+
+```html
+<!-- In index.html <head> -->
+<script type="module">
+  import * as React from 'react';
+  window.React = React;
+</script>
+```
+
+This sets `React` on the global scope before any es-kit modules evaluate.
+
+## Testing
 
 ### Running Tests
 
 ```bash
 # Run all tests
-npm test
+pnpm test
 
 # Watch mode
-npm run test:watch
+pnpm test:watch
 
 # With coverage
-npm run test:coverage
+pnpm test:coverage
 ```
 
 ### Test Configuration
@@ -143,403 +201,95 @@ npm run test:coverage
 - **Environment**: jsdom
 - **Coverage Provider**: V8
 - **Reports**: Text, JSON Summary, LCOV
-- **Excludes**: Type definitions, stories, index files
-- **Setup**: `vitest.setup.ts`
+- **Custom render**: Wraps components in Radix `<Theme>` via `~/utils/test/test-utils`
+- **Custom testIdAttribute**: `data-test-id`
 
-### Writing Tests
-
-```typescript
-import { render, screen } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
-import { MyComponent } from './my-component'
-
-describe('MyComponent', () => {
-  it('renders correctly', () => {
-    render(<MyComponent />)
-    expect(screen.getByText('Hello')).toBeInTheDocument()
-  })
-})
-```
-
-## 📚 Storybook
-
-### Running Storybook
+## Storybook
 
 ```bash
-npm run storybook
+pnpm storybook
 ```
 
 Visit [http://localhost:6006](http://localhost:6006)
 
-### Writing Stories
+Stories use `@storybook/react-vite` with `StoryFn` pattern:
 
 ```typescript
-import type { Meta, StoryObj } from '@storybook/react'
-import { MyComponent } from './my-component'
-
-const meta: Meta<typeof MyComponent> = {
-  title: 'Components/MyComponent',
-  component: MyComponent,
-}
-
-export default meta
-type Story = StoryObj<typeof MyComponent>
-
-export const Default: Story = {
-  args: {
-    label: 'Click me',
-  },
-}
+import type { Meta, StoryFn as Story } from '@storybook/react-vite'
 ```
 
-## 🎨 Styling
+## Docker
 
-### Radix UI Themes
+```bash
+# Build
+pnpm docker:build
 
-This template includes Radix UI Themes for accessible, customizable components:
-
-```typescript
-import { Button, Flex, Text } from '@radix-ui/themes'
-
-export const MyComponent = () => (
-  <Flex direction="column" gap="2">
-    <Text>Hello World</Text>
-    <Button>Click me</Button>
-  </Flex>
-)
+# Run (maps port 8080 -> 3000)
+pnpm docker:run
 ```
 
-### Tailwind CSS
+Uses Node 24 Alpine base image.
 
-Tailwind CSS is configured via Prettier plugin for class sorting:
-
-```typescript
-import { cn } from '~/lib/utils'
-
-export const MyComponent = ({ className }: { className?: string }) => (
-  <div className={cn('flex items-center gap-2 rounded-lg bg-blue-500 p-4', className)}>
-    Content
-  </div>
-)
-```
-
-### Sass/SCSS
-
-Sass is available for component-scoped styles:
-
-```typescript
-import './my-component.scss'
-
-export const MyComponent = () => <div className="my-component">Content</div>
-```
-
-### CVA (Class Variance Authority)
-
-CVA provides type-safe variant management for components:
-
-```typescript
-import { cva, type VariantProps } from 'class-variance-authority'
-
-const buttonVariants = cva('inline-flex items-center justify-center rounded-md', {
-  variants: {
-    variant: {
-      primary: 'bg-blue-500 text-white hover:bg-blue-600',
-      secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
-      danger: 'bg-red-500 text-white hover:bg-red-600',
-    },
-    size: {
-      sm: 'h-8 px-3 text-sm',
-      md: 'h-10 px-4 text-base',
-      lg: 'h-12 px-6 text-lg',
-    },
-  },
-  defaultVariants: {
-    variant: 'primary',
-    size: 'md',
-  },
-})
-
-type ButtonProps = VariantProps<typeof buttonVariants> & { className?: string }
-
-export const Button = ({ variant, size, className }: ButtonProps) => (
-  <button className={buttonVariants({ variant, size, className })}>Click me</button>
-)
-```
-
-### React Hook Form
-
-React Hook Form for performant form handling:
-
-```typescript
-import { useForm } from 'react-hook-form'
-
-interface FormData {
-  email: string
-  password: string
-}
-
-export const LoginForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
-
-  const onSubmit = (data: FormData) => {
-    console.log(data)
-  }
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register('email', { required: 'Email is required' })} />
-      {errors.email && <span>{errors.email.message}</span>}
-
-      <input type="password" {...register('password', { required: true })} />
-      {errors.password && <span>Password is required</span>}
-
-      <button type="submit">Login</button>
-    </form>
-  )
-}
-```
-
-## 🔧 Configuration
+## Configuration
 
 ### TypeScript
 
 - **Target**: ES2022
 - **Module**: ESNext with bundler resolution
 - **Strict Mode**: Enabled
-- **Path Aliases**: `~/` → `./src/`
-- **Experimental Decorators**: Enabled
+- **Path Aliases**: `~/` -> `./src/`
 
 ### ESLint
 
 Modern flat config with:
 - TypeScript integration
 - React & React Hooks rules
-- Auto-sorted imports
+- Auto-sorted imports (`eslint-plugin-simple-import-sort`)
 - Unused imports removal
 - Prettier integration
-- No semicolons, curly braces enforced
 
 ### Prettier
 
-- **Semi**: false (no semicolons)
+- **Semi**: false
 - **Single Quote**: true
 - **Print Width**: 100
-- **Plugins**:
-  - Tailwind CSS class sorting
-  - Package.json formatting
-  - JSON recursive sorting
+- **Plugins**: Tailwind CSS class sorting, package.json formatting, JSON sorting
 
-### Vite
-
-- **Plugins**: React, tsconfig-paths
-- **Path Aliases**: Configured via tsconfig
-- **Git Integration**: Commit hash in build metadata
-
-## 📦 Core Technologies
+## Core Technologies
 
 ### Frontend
-- **React 19.2.0** - Latest React with new features
-- **React DOM 19.2.0** - DOM rendering
-- **React Compiler** - Automatic optimizations
+- **React 19.2** with React Compiler
+- **React Router 7** - Client-side routing
+- **Radix UI Themes 3.3** - Themed component primitives
+- **Base UI 1.2** - Headless unstyled components
+- **Tailwind CSS 4.2** - Utility-first CSS (CSS-first config)
 
 ### Build & Development
-- **Vite 7.2.4** - Next-gen build tool
-- **TypeScript 5.9.3** - Type safety
-- **vite-tsconfig-paths** - Path alias support
+- **Vite 7.3** - Build tool
+- **TypeScript 5.9** - Type safety
 
 ### Testing
-- **Vitest 4.0.16** - Unit testing framework
-- **@testing-library/react 16.3.1** - Component testing
-- **@vitest/browser-playwright** - Browser testing
-- **@vitest/coverage-v8** - Coverage reporting
-- **jsdom 27.4.0** - DOM environment
+- **Vitest 4.0** - Unit testing
+- **@testing-library/react 16.3** - Component testing
+- **Playwright 1.58** - Browser testing
+- **jsdom 27.4** - DOM environment
 
 ### Code Quality
-- **ESLint 9.39.1** - Linting
-- **Prettier 3.7.4** - Formatting
-- **TypeScript ESLint** - TS-specific rules
-
-### UI & Styling
-- **Radix UI Themes 3.2.1** - Component primitives
-- **Tailwind CSS** - Utility-first CSS
-- **CVA (class-variance-authority)** - Type-safe component variant management
-- **Sass 1.97.1** - CSS preprocessor
-- **clsx** & **tailwind-merge** - Class utilities
+- **ESLint 9.39** - Linting
+- **Prettier 3.8** - Formatting
 
 ### Forms
-- **React Hook Form** - Performant, flexible form handling
-- **@hookform/resolvers** - Validation schema integration
+- **React Hook Form 7.71** - Form handling
+- **Zod 4.3** - Schema validation
+- **@hookform/resolvers 5.2** - Validation integration
 
 ### Documentation
-- **Storybook 10.1.11** - Component docs
-- **@storybook/addon-a11y** - Accessibility testing
-- **@storybook/addon-docs** - Auto-docs
-- **@storybook/addon-vitest** - Vitest integration
+- **Storybook 10.2** - Component docs with a11y testing
 
 ### Developer Tools
-- **Plop 4.0.4** - Code generation
-- **@e1011/es-kit** - Utility library
+- **Plop 4.0** - Code generation (standard + headless generators)
+- **@e1011/es-kit 1.1** - Utility library (LayoutBox, hooks)
 
-## 🚦 Code Quality Gates
-
-### Pre-push Hook
-
-The `prepush` script runs:
-1. ESLint checks
-2. Full test suite with coverage
-3. TypeScript compilation
-
-```bash
-npm run prepush
-```
-
-### Coverage Thresholds
-
-Configure in `vitest.config.ts`:
-
-```typescript
-coverage: {
-  provider: 'v8',
-  reporter: ['text', 'json-summary', 'lcov'],
-  include: ['src/**/*.{ts,tsx}'],
-  exclude: ['src/**/*.d.ts', 'src/**/*.stories.*', 'src/**/index.ts'],
-}
-```
-
-## 🎯 Best Practices
-
-### Import Organization
-
-Imports are auto-sorted by `eslint-plugin-simple-import-sort`:
-
-```typescript
-// 1. External packages
-import { useState } from 'react'
-import { Button } from '@radix-ui/themes'
-
-// 2. Internal modules (sorted alphabetically)
-import { MyComponent } from '~/components/my-component'
-import { useCustomHook } from '~/hooks/use-custom-hook'
-import { formatDate } from '~/utils/date'
-```
-
-### React Imports
-
-Use named imports only (enforced by ESLint):
-
-```typescript
-// ✅ Good
-import { useState, useEffect } from 'react'
-
-// ❌ Bad
-import React from 'react'
-```
-
-### Component Structure
-
-```typescript
-// my-component.types.ts
-export interface MyComponentProps {
-  title: string
-  onClick?: () => void
-}
-
-// my-component.tsx
-import type { MyComponentProps } from './my-component.types'
-
-export const MyComponent = ({ title, onClick }: MyComponentProps) => {
-  return <button onClick={onClick}>{title}</button>
-}
-
-// my-component.spec.tsx
-import { render, screen } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
-import { MyComponent } from './my-component'
-
-describe('MyComponent', () => {
-  it('renders title', () => {
-    render(<MyComponent title="Test" />)
-    expect(screen.getByText('Test')).toBeInTheDocument()
-  })
-})
-
-// my-component.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react'
-import { MyComponent } from './my-component'
-
-const meta: Meta<typeof MyComponent> = {
-  title: 'Components/MyComponent',
-  component: MyComponent,
-}
-
-export default meta
-type Story = StoryObj<typeof MyComponent>
-
-export const Default: Story = {
-  args: { title: 'Hello' },
-}
-```
-
-## 📝 Environment Variables
-
-Create `.env` files for environment-specific config:
-
-```bash
-# .env.local
-VITE_API_URL=http://localhost:3000
-VITE_APP_TITLE=My App
-```
-
-Access in code:
-
-```typescript
-const apiUrl = import.meta.env.VITE_API_URL
-```
-
-## 🚀 Deployment
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-Output in `dist/` directory.
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-### Deploy Storybook
-
-```bash
-npm run build-storybook
-```
-
-Output in `storybook-static/` directory.
-
-## 🤝 Contributing
-
-1. Create a feature branch
-2. Make your changes
-3. Run `npm run prepush` to validate
-4. Submit a pull request
-
-## 📄 License
+## License
 
 MIT
-
-## 🙏 Acknowledgments
-
-- [Vite](https://vitejs.dev/)
-- [React](https://react.dev/)
-- [Vitest](https://vitest.dev/)
-- [Storybook](https://storybook.js.org/)
-- [Radix UI](https://www.radix-ui.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-
----
-
-**Built with ❤️ using modern web technologies**
