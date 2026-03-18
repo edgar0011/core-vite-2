@@ -103,4 +103,69 @@ module.exports = function (plop) {
       },
     ],
   })
+
+  // Headless component generator with view separation
+  plop.setGenerator('headless-component', {
+    description:
+      'Generate headless component with separated view (use --component "path/name")',
+    prompts: (inquirer) => {
+      const componentArg = getArgValue('component')
+
+      if (componentArg) {
+        const { module, name } = parseComponentPath(componentArg)
+        return Promise.resolve({ module, name })
+      }
+
+      return inquirer.prompt([
+        {
+          type: 'input',
+          name: 'module',
+          message: 'component module, or path please',
+        },
+        {
+          type: 'input',
+          name: 'name',
+          message: 'component name please',
+        },
+      ])
+    },
+    actions: [
+      {
+        type: 'add',
+        path: 'src/components/{{module}}/{{kebabCase name}}.tsx',
+        templateFile:
+          'scripts/plop-templates/ui/headless-component/component.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/components/{{module}}/{{kebabCase name}}.types.ts',
+        templateFile:
+          'scripts/plop-templates/ui/headless-component/component.types.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/components/{{module}}/{{kebabCase name}}.helpers.ts',
+        templateFile:
+          'scripts/plop-templates/ui/headless-component/component.helpers.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/components/{{module}}/views/{{kebabCase name}}.view.tsx',
+        templateFile:
+          'scripts/plop-templates/ui/headless-component/component.view.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/components/{{module}}/views/{{kebabCase name}}.view.stories.tsx',
+        templateFile:
+          'scripts/plop-templates/ui/headless-component/component.view.stories.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/components/{{module}}/views/{{kebabCase name}}.view.spec.tsx',
+        templateFile:
+          'scripts/plop-templates/ui/headless-component/component.view.spec.hbs',
+      },
+    ],
+  })
 }

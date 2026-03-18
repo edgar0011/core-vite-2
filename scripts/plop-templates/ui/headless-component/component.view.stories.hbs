@@ -1,0 +1,17 @@
+import type { Meta, StoryFn as Story } from '@storybook/react-vite'
+
+import type { {{pascalCase name}}ViewProps } from '../{{kebabCase name}}.types'
+
+import { {{pascalCase name}}View } from './{{kebabCase name}}.view'
+
+export default {
+  title: 'components/{{module}}/{{kebabCase name}}/view',
+  component: {{pascalCase name}}View,
+} as Meta
+
+const Template: Story<{{pascalCase name}}ViewProps> = (args) => (
+  <{{pascalCase name}}View {...args} />
+)
+
+export const Base: Story<{{pascalCase name}}ViewProps> = Template.bind({})
+Base.args = {}

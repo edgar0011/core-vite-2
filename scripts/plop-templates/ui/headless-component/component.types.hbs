@@ -1,0 +1,12 @@
+import type { ComponentProps, ComponentType, PropsWithChildren } from 'react'
+
+export type {{pascalCase name}}ViewProps = ComponentProps<'div'> &
+  PropsWithChildren & {
+    /** Add view-specific props here */
+  }
+
+export type {{pascalCase name}}Props = {{pascalCase name}}ViewProps & {
+  components?: {
+    View?: ComponentType<{{pascalCase name}}ViewProps>
+  }
+}

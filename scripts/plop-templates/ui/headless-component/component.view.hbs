@@ -1,0 +1,20 @@
+import { type FC } from 'react'
+
+import { LayoutBox } from '~/components/es-kit/components/container/layoutBox/LayoutBox'
+import { cn } from '~/lib/utils'
+
+import type { {{pascalCase name}}ViewProps } from '../{{kebabCase name}}.types'
+
+export const {{pascalCase name}}View: FC<{{pascalCase name}}ViewProps> = ({
+  className,
+  children,
+  ...props
+}) => {
+  return (
+    <LayoutBox column wFull className={cn('', className)} {...props}>
+      {children}
+    </LayoutBox>
+  )
+}
+
+{{pascalCase name}}View.displayName = '{{pascalCase name}}View'

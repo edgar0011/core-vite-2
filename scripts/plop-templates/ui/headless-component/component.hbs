@@ -1,0 +1,21 @@
+import type { FC } from 'react'
+
+import type { {{pascalCase name}}Props } from './{{kebabCase name}}.types'
+import { {{pascalCase name}}View } from './views/{{kebabCase name}}.view'
+
+export const {{pascalCase name}}: FC<{{pascalCase name}}Props> = ({
+  components,
+  ...props
+}) => {
+  const View = components?.View ?? {{pascalCase name}}View
+
+  return (
+    <View
+      {...props}
+    />
+  )
+}
+
+{{pascalCase name}}.displayName = '{{pascalCase name}}'
+
+export type {{pascalCase name}}Type = typeof {{pascalCase name}}

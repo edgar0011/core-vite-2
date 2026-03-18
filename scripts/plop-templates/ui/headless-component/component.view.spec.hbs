@@ -1,0 +1,30 @@
+import { render, screen } from '~/utils/test/test-utils'
+
+import type { {{pascalCase name}}ViewProps } from '../{{kebabCase name}}.types'
+
+import { {{pascalCase name}}View } from './{{kebabCase name}}.view'
+
+const defaultProps: {{pascalCase name}}ViewProps = {}
+
+describe('components/{{module}}/{{kebabCase name}}/{{pascalCase name}}View', () => {
+  it('renders with default props', () => {
+    const { container } = render(<{{pascalCase name}}View {...defaultProps} />)
+    expect(container.firstChild).toBeInTheDocument()
+  })
+
+  it('applies custom className', () => {
+    const { container } = render(
+      <{{pascalCase name}}View {...defaultProps} className="custom-class" />,
+    )
+    expect(container.querySelector('.custom-class')).toBeInTheDocument()
+  })
+
+  it('renders children', () => {
+    render(
+      <{{pascalCase name}}View {...defaultProps}>
+        <span data-test-id="child">Hello</span>
+      </{{pascalCase name}}View>,
+    )
+    expect(screen.getByTestId('child')).toBeInTheDocument()
+  })
+})
