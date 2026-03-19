@@ -1,3 +1,5 @@
+import type { RefObject } from 'react'
+
 import { render, screen } from '~/utils/test/test-utils'
 
 import { Heading } from './heading'
@@ -61,7 +63,7 @@ describe('components/atoms/typography/Heading', () => {
   })
 
   it('forwards ref', () => {
-    const ref = { current: null } as React.RefObject<HTMLHeadingElement>
+    const ref = { current: null } as RefObject<HTMLHeadingElement | null>
     render(<Heading ref={ref}>Title</Heading>)
 
     expect(ref.current).toBeInstanceOf(HTMLHeadingElement)

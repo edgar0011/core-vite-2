@@ -62,8 +62,8 @@ export const Text = forwardRef<HTMLElement, TextProps>(
   ) => {
     return (
       <Tag
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ref={ref as any}
+        {...(props as Record<string, unknown>)}
+        ref={ref as React.Ref<never>}
         className={cn(
           classes.text,
           sizeClass[size],
@@ -75,7 +75,6 @@ export const Text = forwardRef<HTMLElement, TextProps>(
           highContrast && classes.highContrast,
           className,
         )}
-        {...props}
       >
         {children}
       </Tag>
