@@ -1,6 +1,8 @@
-import { Button as EsKitButton, useToggle } from '@e1011/es-kit'
+import '~/components/atoms/wc/Stripe'
+
+import { Button as EsKitButton, LayoutBox, useToggle } from '@e1011/es-kit'
 import { Button } from '@radix-ui/themes'
-import { type FC } from 'react'
+import { type FC, useState } from 'react'
 
 import { Heading, Text } from '~/components/atoms/typography'
 import { BoxLayout } from '~/components/es-kit/components/container/layoutBox/LayoutBox'
@@ -8,6 +10,10 @@ import { cn } from '~/lib/utils'
 
 import classes from './main.module.scss'
 import type { MainProps } from './main.types'
+
+const styles = {
+  stripe: { width: '600px' },
+}
 
 /**
  * Main component
@@ -23,6 +29,13 @@ export const Main: FC<MainProps> = ({
 }) => {
   const [skipped, toggleSkip] = useToggle(true)
 
+  const [progress, setProgress] = useState(40)
+
+  const handleButtonClick = () => {
+    setProgress(Math.random() * 100)
+    onButtonClick?.()
+  }
+
   return (
     <BoxLayout column wFull className={cn('', className, classes.main)} {...props}>
       <Heading as="h1">{title}</Heading>
@@ -31,9 +44,13 @@ export const Main: FC<MainProps> = ({
 
       {children}
 
-      <Button onClick={onButtonClick}>{buttonLabel}</Button>
-
-      <EsKitButton onClick={toggleSkip}>{skipped ? 'Skip' : 'Unskip'}</EsKitButton>
+      <LayoutBox column>
+        <Button onClick={handleButtonClick}>{buttonLabel}</Button>
+        progress: {progress}
+        {/* @ts-expect-error Stripe is not a React component */}
+        <atom-stripe value={progress} style={styles.stripe} />
+        <EsKitButton onClick={toggleSkip}>{skipped ? 'Skip' : 'Unskip'}</EsKitButton>
+      </LayoutBox>
     </BoxLayout>
   )
 }

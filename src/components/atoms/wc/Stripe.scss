@@ -1,0 +1,17 @@
+.stripe {
+  width: 600px;
+  background-color: #00FF0020;
+  height: 1.6rem;
+  border: 1px solid #FFFFFF80;
+  // border: 1px solid red;
+
+  #stripe {
+    display: inline-block;
+    background: url('/src/assets/bgrs/stripes.png');
+    background-color: #00FF0040;
+
+    height: 100%;
+
+    transition: width 350ms ease;
+  }
+}
