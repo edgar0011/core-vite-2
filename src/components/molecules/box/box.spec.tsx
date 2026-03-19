@@ -45,7 +45,7 @@ describe('components/molecules/box/Box', () => {
   it('renders children when provided', () => {
     render(
       <Box>
-        <div data-test-id="custom-content">Custom content</div>
+        <div data-testid="custom-content">Custom content</div>
       </Box>,
     )
 

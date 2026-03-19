@@ -45,7 +45,7 @@ describe('components/routes/main/Main', () => {
   it('renders children when provided', () => {
     render(
       <Main>
-        <div data-test-id="custom-content">Custom content</div>
+        <div data-testid="custom-content">Custom content</div>
       </Main>,
     )
 

@@ -83,7 +83,7 @@ describe('components/atoms/typography/Text', () => {
 
   it('passes through HTML attributes', () => {
     render(
-      <Text id="my-text" data-test-id="text">
+      <Text id="my-text" data-testid="text">
         Content
       </Text>,
     )

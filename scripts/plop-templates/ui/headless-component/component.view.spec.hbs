@@ -22,7 +22,7 @@ describe('components/{{module}}/{{kebabCase name}}/{{pascalCase name}}View', () 
   it('renders children', () => {
     render(
       <{{pascalCase name}}View {...defaultProps}>
-        <span data-test-id="child">Hello</span>
+        <span data-testid="child">Hello</span>
       </{{pascalCase name}}View>,
     )
     expect(screen.getByTestId('child')).toBeInTheDocument()

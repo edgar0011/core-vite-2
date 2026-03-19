@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { configure, render, type RenderOptions, type RenderResult } from '@testing-library/react'
+import { render, type RenderOptions, type RenderResult } from '@testing-library/react'
 import type { FC, PropsWithChildren, ReactElement } from 'react'
 
 type Props = PropsWithChildren<any>
@@ -16,8 +16,6 @@ const customRender = (ui: ReactElement, options?: RenderOptions): RenderResult =
 // re-export everything
 // eslint-disable-next-line react-refresh/only-export-components
 export * from '@testing-library/react'
-
-configure({ testIdAttribute: 'data-test-id' })
 
 // override render method
 export { customRender as render }

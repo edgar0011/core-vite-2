@@ -50,7 +50,7 @@ describe('components/routes/examples/Examples', () => {
   it('renders children when provided', async () => {
     await renderWithRouter(
       <Examples>
-        <div data-test-id="custom-content">Custom content</div>
+        <div data-testid="custom-content">Custom content</div>
       </Examples>,
       { loaderData: mockLoaderData },
     )

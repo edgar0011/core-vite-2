@@ -79,7 +79,7 @@ describe('components/atoms/table-cell/TableCell', () => {
     render(
       <TableWrapper>
         <TableCell>
-          <span data-test-id="child-element">Child element</span>
+          <span data-testid="child-element">Child element</span>
         </TableCell>
       </TableWrapper>,
     )

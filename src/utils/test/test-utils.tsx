@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Theme } from '@radix-ui/themes'
 import type { RenderOptions, RenderResult } from '@testing-library/react'
-import { configure, render, waitFor } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import type { FC, PropsWithChildren, ReactElement } from 'react'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 
@@ -61,8 +61,6 @@ const renderWithRouter = async (
 
 // re-export everything
 export * from '@testing-library/react'
-
-configure({ testIdAttribute: 'data-test-id' })
 
 // override render method
 export { customRender as render, renderWithRouter }

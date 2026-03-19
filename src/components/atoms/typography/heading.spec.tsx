@@ -71,7 +71,7 @@ describe('components/atoms/typography/Heading', () => {
 
   it('passes through HTML attributes', () => {
     render(
-      <Heading id="my-heading" data-test-id="heading">
+      <Heading id="my-heading" data-testid="heading">
         Title
       </Heading>,
     )
