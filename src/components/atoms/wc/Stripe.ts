@@ -95,11 +95,15 @@ class Stripe extends HTMLElement {
 
 export default Stripe
 
-declare global {
+interface AtomStripeAttributes extends React.HTMLAttributes<HTMLElement> {
+  value?: string | number
+}
+
+declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      'atom-stripe': Stripe
+      'atom-stripe': AtomStripeAttributes
     }
   }
 }

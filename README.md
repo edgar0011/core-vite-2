@@ -158,6 +158,56 @@ A Greptile-style linen texture is available as a CSS utility:
 <div class="canvas-linen">...</div>
 ```
 
+## Web Components
+
+Custom elements live in `src/components/atoms/wc/`. They use the `@ced` decorator from `@e1011/es-kit` to register with the browser via `customElements.define()`.
+
+### Creating a Custom Element
+
+```typescript
+// src/components/atoms/wc/Stripe.ts
+import { ced } from '@e1011/es-kit'
+import type React from 'react'
+
+@ced('atom-stripe')
+class Stripe extends HTMLElement {
+  static get observedAttributes() { return ['value'] }
+  attributeChangedCallback(name: string, oldVal: string, newVal: string) { /* ... */ }
+}
+
+export default Stripe
+```
+
+### React 19 JSX Typing
+
+React 19 moved `JSX.IntrinsicElements` from the global scope into the `react` module. To register a custom element for JSX, use **module augmentation** (not `declare global`):
+
+```typescript
+interface AtomStripeAttributes extends React.HTMLAttributes<HTMLElement> {
+  value?: string | number
+}
+
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'atom-stripe': AtomStripeAttributes
+    }
+  }
+}
+```
+
+### Using in React
+
+Import the component file (side-effect import) to register it, then use the tag in JSX:
+
+```typescript
+import '~/components/atoms/wc/Stripe'
+
+<atom-stripe value={progress} style={{ width: '600px' }} />
+```
+
+> **Note**: React 19 passes values as **properties** (not attributes) to custom elements. Use `attributeChangedCallback` and property setters for reactive updates.
+
 ## Tailwind CSS v4
 
 This project uses Tailwind CSS v4 with **CSS-first configuration** — there is no `tailwind.config.js`.
@@ -202,7 +252,7 @@ pnpm test:coverage
 - **Coverage Provider**: V8
 - **Reports**: Text, JSON Summary, LCOV
 - **Custom render**: Wraps components in Radix `<Theme>` via `~/utils/test/test-utils`
-- **Custom testIdAttribute**: `data-test-id`
+- **testIdAttribute**: `data-testid` (default)
 
 ## Storybook
 

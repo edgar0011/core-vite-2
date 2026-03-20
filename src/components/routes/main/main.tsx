@@ -47,7 +47,6 @@ export const Main: FC<MainProps> = ({
       <LayoutBox column>
         <Button onClick={handleButtonClick}>{buttonLabel}</Button>
         progress: {progress}
-        {/* @ts-expect-error Stripe is not a React component */}
         <atom-stripe value={progress} style={styles.stripe} />
         <EsKitButton onClick={toggleSkip}>{skipped ? 'Skip' : 'Unskip'}</EsKitButton>
       </LayoutBox>
