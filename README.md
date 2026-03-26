@@ -4,14 +4,14 @@
 
 [![React](https://img.shields.io/badge/React-19.2.4-61dafb?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178c6?logo=typescript)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-7.3.1-646cff?logo=vite)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.0.3-646cff?logo=vite)](https://vitejs.dev/)
 [![Vitest](https://img.shields.io/badge/Vitest-4.0.18-6e9f18?logo=vitest)](https://vitest.dev/)
 [![Storybook](https://img.shields.io/badge/Storybook-10.2.14-ff4785?logo=storybook)](https://storybook.js.org/)
 
 ## Features
 
 - **React 19** with React Compiler for automatic optimizations
-- **Vite 7** - Lightning-fast HMR and optimized builds
+- **Vite 8** - Lightning-fast HMR and optimized builds (built-in tsconfig path resolution)
 - **TypeScript** - Strict type safety with ES2022 target
 - **Tailwind CSS v4** - CSS-first configuration via `@import 'tailwindcss'`
 - **Vitest** - Fast unit testing with coverage reporting
@@ -315,7 +315,7 @@ Modern flat config with:
 - **Tailwind CSS 4.2** - Utility-first CSS (CSS-first config)
 
 ### Build & Development
-- **Vite 7.3** - Build tool
+- **Vite 8.0** - Build tool (native `resolve.tsconfigPaths` replaces `vite-tsconfig-paths`)
 - **TypeScript 5.9** - Type safety
 
 ### Testing

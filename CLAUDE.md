@@ -6,7 +6,7 @@ core-vite-2 is a Vite-based React SPA for prototyping UI components and patterns
 
 **Tech Stack**:
 
-- **Framework**: React 19 + Vite 7 (SPA, client-side routing via `react-router` v7)
+- **Framework**: React 19 + Vite 8 (SPA, client-side routing via `react-router` v7)
 - **Language**: TypeScript 5.9 (strict, `verbatimModuleSyntax`, `erasableSyntaxOnly`)
 - **Styling**: Tailwind CSS v4 (CSS-first config via `@import 'tailwindcss'` — no `tailwind.config.js`), SCSS modules for component-scoped styles
 - **UI Components**: `@base-ui/react` v1.2 for headless primitives, `@radix-ui/themes` v3.3 for higher-level components (Table, Button, Flex, Select, Link)
@@ -140,7 +140,8 @@ views/{kebab-name}.view.spec.tsx    # Vitest test for view
 
 ## Vite Config
 
-- **Plugins**: `vite-tsconfig-paths`, `@vitejs/plugin-react`, `@tailwindcss/vite`, `vite-plugin-html` (template injection), `vite-plugin-replace` (version/app name tokens)
+- **Plugins**: `@vitejs/plugin-react`, `@tailwindcss/vite`, `vite-plugin-html` (template injection), `vite-plugin-replace` (version/app name tokens), `vite-plugin-checker` (ESLint overlay in dev)
+- **Path resolution**: Built-in `resolve.tsconfigPaths: true` (Vite 8 — no plugin needed)
 - **Base path**: `VITE_BASE` env var or `/core-vite-2/`
 - **Dev server**: port 3000, host: true
 - **Build-time defines**: `__COMMIT__` (git short SHA), `CORE_VITE_APP_VERSION`, `CORE_VITE_APP`, `CORE_VITE_CONFIG_BASE_PATH`

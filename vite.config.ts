@@ -4,14 +4,16 @@ import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
 import shelljs from 'shelljs'
 import { defineConfig } from 'vite'
-// @ts-expect-error -- vite-plugin-eslint has broken typings with package.json exports
-import eslint from 'vite-plugin-eslint'
+import checker from 'vite-plugin-checker'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { replaceCodePlugin } from 'vite-plugin-replace'
-import tsconfigPaths from 'vite-tsconfig-paths'
 
-const useEslint = dotenv.config()?.parsed?.USE_ESLINT !== 'false' || process.env.USE_ESLINT !== 'false'
+const useEslint =
+  dotenv.config()?.parsed?.USE_ESLINT !== 'false' || process.env.USE_ESLINT !== 'false'
 const useSSL = dotenv.config()?.parsed?.USE_SSL === 'true' || process.env.USE_SSL === 'true'
+
+console.log('useEslint', useEslint)
+console.log('useSSL', useSSL)
 
 const NODE_ENV = process.env.NODE_ENV || 'production'
 const isProd = NODE_ENV === 'production'
@@ -32,7 +34,6 @@ const outDir = isSimple ? 'distSimple' : 'dist'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    tsconfigPaths(),
     react(),
     tailwindcss(),
     createHtmlPlugin({
@@ -61,8 +62,8 @@ export default defineConfig({
         },
       ],
     }),
-    useSSL ? null : basicSsl(),
-    isProd || !useEslint ? null : eslint({ emitWarning: false }),
+    useSSL ? basicSsl() : null,
+    isProd || !useEslint ? null : checker({ eslint: { lintCommand: 'eslint src' } }),
   ],
   server: {
     host: true,
@@ -70,6 +71,9 @@ export default defineConfig({
   },
   preview: {
     port: 3000,
+  },
+  resolve: {
+    tsconfigPaths: true,
   },
   base: basePath,
   build: {

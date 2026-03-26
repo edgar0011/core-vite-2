@@ -11,6 +11,8 @@ lerna-debug.log*
 
 node_modules
 dist
+distSimple
+distServer
 dist-ssr
 *.local
 coverage
