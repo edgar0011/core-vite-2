@@ -16,7 +16,6 @@ RUN yarn config set registry https://registry.npmjs.org/
 RUN yarn cache clean
 RUN export NODE_OPTIONS="--max-old-space-size=8000" && yarn upgrade
 RUN export NODE_OPTIONS="--max-old-space-size=8000" && yarn
-
 # If you are building your code for production
 # RUN npm ci --only=production
 
@@ -24,12 +23,10 @@ RUN export NODE_OPTIONS="--max-old-space-size=8000" && yarn
 COPY . .
 
 RUN export NODE_OPTIONS="--max-old-space-size=8000" && yarn build
-RUN export NODE_OPTIONS="--max-old-space-size=8000" && yarn build:simple
-RUN export NODE_OPTIONS="--max-old-space-size=8000" && yarn build:be
 # If you are building your code for production
 # RUN npm ci --only=production
 
 # Bundle app source
 
-EXPOSE 8080
-CMD [ "yarn", "start:be" ]
+EXPOSE 3000
+CMD [ "yarn", "start" ]

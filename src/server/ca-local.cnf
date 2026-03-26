@@ -1,0 +1,18 @@
+[ req ]
+prompt = no
+distinguished_name = req_distinguished_name
+x509_extensions = v3_ca
+
+[ req_distinguished_name ]
+C = GB
+ST = Buckinghamshire
+L = Newport Pagnell
+O = Example Limited
+CN = Example Limited CA
+emailAddress = webmaster@example.com
+
+[ v3_ca ]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+#basicConstraints = critical,CA:true
+basicConstraints = CA:true
