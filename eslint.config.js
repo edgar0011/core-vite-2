@@ -11,8 +11,8 @@ import storybook from 'eslint-plugin-storybook'
 import unusedImports from 'eslint-plugin-unused-imports'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
-// Note: 'eslint-plugin-graet' is a custom plugin - uncomment and install if available
-// import graet from 'eslint-plugin-graet'
+
+import cv2 from './scripts/eslint-plugin-cv2/index.js'
 
 export default defineConfig([
   // Global ignores
@@ -84,6 +84,18 @@ export default defineConfig([
       'react-hooks/rules-of-hooks': 'warn',
       'react-hooks/exhaustive-deps': 'warn',
       'react/jsx-no-undef': 'error',
+    },
+  },
+
+  // No inline helpers in component files (exclude stories, specs, types, helpers)
+  {
+    files: ['src/**/*.tsx'],
+    ignores: ['src/**/*.spec.tsx', 'src/**/*.stories.tsx', 'src/**/*.types.ts'],
+    plugins: {
+      cv2,
+    },
+    rules: {
+      'cv2/no-inline-helpers': 'warn',
     },
   },
 ])
