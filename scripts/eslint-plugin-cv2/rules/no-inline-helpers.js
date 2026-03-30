@@ -1,5 +1,5 @@
 /**
- * Rule: graet/no-inline-helpers
+ * Rule: scripts/eslint-plugin-cv2/no-inline-helpers
  *
  * Warns when helper functions or constants are defined in component files
  * instead of in a co-located .helpers.ts file.

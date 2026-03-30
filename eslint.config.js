@@ -2,6 +2,7 @@ import js from '@eslint/js'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import prettierConfig from 'eslint-config-prettier'
 import importPlugin from 'eslint-plugin-import'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
 import prettier from 'eslint-plugin-prettier'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -16,7 +17,7 @@ import cv2 from './scripts/eslint-plugin-cv2/index.js'
 
 export default defineConfig([
   // Global ignores
-  globalIgnores(['dist', 'node_modules', '.next', 'infra', 'next-env.d.ts']),
+  globalIgnores(['dist', 'distSimple', 'distServer', 'node_modules']),
 
   // Base config for all TypeScript/JavaScript files
   {
@@ -26,6 +27,7 @@ export default defineConfig([
       tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
+      jsxA11y.flatConfigs.recommended,
       prettierConfig,
     ],
     plugins: {
@@ -48,7 +50,9 @@ export default defineConfig([
       },
     },
     rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
       curly: 1,
+      'import/no-cycle': 'error',
       'import/no-extraneous-dependencies': ['error'],
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
       'no-restricted-imports': [
