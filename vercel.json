@@ -1,7 +1,7 @@
 {
   "build": {
     "env": {
-      "VITE_BASE": "/"
+      "VITE_BASE": "/core-vite-2"
     }
   },
   "rewrites": [
