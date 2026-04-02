@@ -30,7 +30,7 @@
 ### Prerequisites
 
 - Node.js 24+
-- pnpm (recommended), yarn, or npm
+- yarn (classic 1.22)
 
 ### Installation
 
@@ -40,10 +40,10 @@ git clone <your-repo-url>
 cd core-vite-2
 
 # Install dependencies
-pnpm install
+yarn install
 
 # Start development server
-pnpm dev
+yarn dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to see your app.
@@ -101,13 +101,13 @@ Generate new components with Plop:
 
 ```bash
 # Interactive mode — choose between component and headless-component
-pnpm plop
+yarn plop
 
 # Standard component with CLI arguments
-pnpm plop component -- --component "atoms/my-button"
+yarn plop component -- --component "atoms/my-button"
 
 # Headless component with view separation
-pnpm plop headless-component -- --component "molecules/my-widget"
+yarn plop headless-component -- --component "molecules/my-widget"
 ```
 
 ### Standard Component
@@ -237,13 +237,13 @@ This sets `React` on the global scope before any es-kit modules evaluate.
 
 ```bash
 # Run all tests
-pnpm test
+yarn test
 
 # Watch mode
-pnpm test:watch
+yarn test:watch
 
 # With coverage
-pnpm test:coverage
+yarn test:coverage
 ```
 
 ### Test Configuration
@@ -257,7 +257,7 @@ pnpm test:coverage
 ## Storybook
 
 ```bash
-pnpm storybook
+yarn storybook
 ```
 
 Visit [http://localhost:6006](http://localhost:6006)
@@ -272,10 +272,10 @@ import type { Meta, StoryFn as Story } from '@storybook/react-vite'
 
 ```bash
 # Build
-pnpm docker:build
+yarn docker:build
 
 # Run (maps port 8080 -> 3000)
-pnpm docker:run
+yarn docker:run
 ```
 
 Uses Node 24 Alpine base image.

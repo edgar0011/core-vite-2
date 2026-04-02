@@ -9,10 +9,10 @@ describe('components/routes/examples/Examples', () => {
 
     expect(rendered?.container).toBeDefined()
     await waitFor(() => {
-      expect(screen.getByText('Examples Title')).toBeInTheDocument()
+      expect(screen.getByText('Examples')).toBeInTheDocument()
     })
-    expect(screen.getByText('Examples description text')).toBeInTheDocument()
-    expect(screen.getByText('Action')).toBeInTheDocument()
+    expect(screen.getByText('Component examples with async data loading.')).toBeInTheDocument()
+    expect(screen.getByText('Reload')).toBeInTheDocument()
   })
 
   it('renders Examples with custom props', async () => {
@@ -39,7 +39,7 @@ describe('components/routes/examples/Examples', () => {
 
     await renderWithRouter(<Examples onButtonClick={mockOnClick} />, { loaderData: mockLoaderData })
 
-    const buttons = screen.getAllByText('Action')
+    const buttons = screen.getAllByText('Reload')
     const button = buttons[buttons.length - 1]
 
     fireEvent.click(button)
