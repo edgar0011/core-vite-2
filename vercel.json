@@ -1,4 +1,9 @@
 {
+  "build": {
+    "env": {
+      "VITE_BASE": "/"
+    }
+  },
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
