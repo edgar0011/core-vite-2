@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/core-vite-2(.*)",
-      "destination": "/core-vite-2/index.html"
+      "destination": "/index.html"
     }
   ]
 }
