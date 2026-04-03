@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/core-vite-2/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
       "source": "/core-vite-2(.*)",
       "destination": "/index.html"
     }
