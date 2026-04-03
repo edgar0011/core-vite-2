@@ -1,5 +1,8 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/core-vite-2(.*)",
+      "destination": "/core-vite-2/index.html"
+    }
   ]
 }
