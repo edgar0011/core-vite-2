@@ -1,5 +1,5 @@
-import './sandbox/decorators/decorator-example.js'
-import './sandbox/decorators/decorator-example-ts.ts'
+import './sandbox/decorators/decorator-example'
+import './sandbox/decorators/decorator-example-ts'
 
 import { Link } from '@radix-ui/themes'
 import { Link as RouterLink, Outlet } from 'react-router'
@@ -7,10 +7,10 @@ import { Link as RouterLink, Outlet } from 'react-router'
 import { Heading } from '~/components/atoms/typography'
 
 import { BoxLayout, LayoutBox } from './components/es-kit/components/container/layoutBox/LayoutBox'
-import { Box } from './components/molecules/box/box.tsx'
-import { RadixTheme } from './lib/customized-radix-theme-provider.tsx'
-import { configBasePath } from './router/config.tsx'
-import { NavLink } from './router/navlink.tsx'
+import { Box } from './components/molecules/box/box'
+import { RadixTheme } from './lib/customized-radix-theme-provider'
+import { configBasePath } from './router/config'
+import { NavLink } from './router/navlink'
 
 function App() {
   return (

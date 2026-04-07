@@ -21,13 +21,42 @@ const isProd = NODE_ENV === 'production'
 const { stdout: lastCommit } = shelljs.exec('git rev-parse --short HEAD', { silent: true })
 console.log('lastCommit', lastCommit)
 
-import { name, version } from './package.json'
+import { dependencies, name, version } from './package.json'
 
 const versionToken = `${version}, ${lastCommit?.trim()}`
 
+const manualChunksMap: Record<string, string[]> = {
+  'chunk-react': ['react', 'react-dom'],
+  'chunk-@base-ui/react': ['@base-ui/react'],
+  'chunk-@radix-ui/themes': ['@radix-ui/themes'],
+}
+
+// server-side deps — excluded from client chunks
+const excludedFromChunks = new Set([
+  'react',
+  'react-dom',
+  '@base-ui/react',
+  '@radix-ui/themes',
+  'body-parser',
+  'compression',
+  'connect-timeout',
+  'cors',
+  'dotenv',
+  'express',
+  'express-rate-limit',
+  'helmet',
+  'vhost',
+])
+
+Object.keys(dependencies).forEach((key) => {
+  if (!excludedFromChunks.has(key)) {
+    manualChunksMap[`chunk-${key}`] = [key]
+  }
+})
+
 const isSimple = `${process.argv.slice(-2)}` === `${['--', 'simple']}`
 
-const basePath = process.env.VITE_BASE || (isSimple ? '/core-simple/' : '/core-vite-2/')
+const basePath = process.env.VITE_BASE || (isSimple ? '/core-simple/' : '/core-vite-2')
 const entryPoint = isSimple ? '/src/main.simple.tsx' : '/src/main.tsx'
 const outDir = isSimple ? 'distSimple' : 'dist'
 
@@ -78,6 +107,17 @@ export default defineConfig({
   base: basePath,
   build: {
     outDir,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          for (const [chunkName, deps] of Object.entries(manualChunksMap)) {
+            if (deps.some((dep) => id.includes(`node_modules/${dep}/`))) {
+              return chunkName
+            }
+          }
+        },
+      },
+    },
   },
 
   define: {

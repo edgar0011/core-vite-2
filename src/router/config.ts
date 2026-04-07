@@ -1,8 +1,12 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router'
 
 import App from '~/App'
-import { Examples } from '~/components/routes/examples/examples'
-import { Main } from '~/components/routes/main/main'
+
+const Main = lazy(() => import('~/components/routes/main/main').then((m) => ({ default: m.Main })))
+const Examples = lazy(() =>
+  import('~/components/routes/examples/examples').then((m) => ({ default: m.Examples })),
+)
 
 export const configBasePath = 'CORE_VITE_CONFIG_BASE_PATH'
 
