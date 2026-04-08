@@ -20,6 +20,13 @@ export default defineConfig({
       '~': path.resolve(__dirname, './src'),
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        loadPaths: ['./src'],
+      },
+    },
+  },
   esbuild: {
     jsx: 'automatic',
     jsxImportSource: 'react',
