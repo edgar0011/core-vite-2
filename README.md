@@ -314,8 +314,11 @@ Modern flat config with:
 - **Base UI 1.2** - Headless unstyled components
 - **Tailwind CSS 4.2** - Utility-first CSS (CSS-first config)
 
-### Build & Development
+### Build & Deployment
 - **Vite 8.0** - Build tool (native `resolve.tsconfigPaths` replaces `vite-tsconfig-paths`)
+- **Manual chunk splitting** - Each vendor dependency gets its own cacheable chunk (server-side deps excluded)
+- **Vercel deployment** - SPA URL rewrite rules for client-side routing
+- **Express production server** - Node.js server with compression, CORS, helmet, rate limiting
 - **TypeScript 5.9** - Type safety
 
 ### Testing
@@ -334,7 +337,7 @@ Modern flat config with:
 - **@hookform/resolvers 5.2** - Validation integration
 
 ### Documentation
-- **Storybook 10.2** - Component docs with a11y testing
+- **Storybook 10.2** - Component docs with a11y testing, dark/light mode via `storybook-dark-mode`
 
 ### Developer Tools
 - **Plop 4.0** - Code generation (standard + headless generators)
