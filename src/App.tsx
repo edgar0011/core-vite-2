@@ -1,6 +1,8 @@
 import './sandbox/decorators/decorator-example'
 import './sandbox/decorators/decorator-example-ts'
 
+import { setThemeClassNames } from '@e1011/es-kit'
+import { useThemePreference } from '@e1011/es-kit/hooks'
 import { Link } from '@radix-ui/themes'
 import { Link as RouterLink, Outlet } from 'react-router'
 
@@ -12,7 +14,12 @@ import { RadixTheme } from './lib/customized-radix-theme-provider'
 import { configBasePath } from './router/config'
 import { NavLink } from './router/navlink'
 
+// Map es-kit theme classes to our CSS selectors
+setThemeClassNames({ dark: 'dark', light: 'light' })
+
 function App() {
+  // Observes prefers-color-scheme and toggles .dark / .light on document.body
+  useThemePreference()
   return (
     <RadixTheme className="min-h-screen w-full">
       <BoxLayout column style={{ minHeight: '100vh', width: '100%' }}>
