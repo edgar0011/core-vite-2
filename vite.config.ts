@@ -37,6 +37,8 @@ const excludedFromChunks = new Set([
   'react-dom',
   '@base-ui/react',
   '@radix-ui/themes',
+  'tailwindcss',
+  '@tailwindcss/vite',
   'body-parser',
   'compression',
   'connect-timeout',
@@ -105,7 +107,18 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   base: basePath,
+
+  css: {
+    preprocessorOptions: {
+      scss: {
+        loadPaths: ['./src'],
+      },
+    },
+  },
+
   build: {
+    assetsInlineLimit: 0,
+    sourcemap: !isProd,
     outDir,
     rollupOptions: {
       output: {
@@ -116,6 +129,7 @@ export default defineConfig({
             }
           }
         },
+        minify: isProd ? { compress: { dropConsole: true, dropDebugger: true } } : undefined,
       },
     },
   },
