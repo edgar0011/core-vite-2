@@ -34,3 +34,4 @@ storybook-static
 
 .claude
 .playwright-mcp
+./src/server/cert
