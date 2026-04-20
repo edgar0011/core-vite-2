@@ -32,6 +32,6 @@ coverage
 storybook-static
 
 
-.claude
+.claude/settings.local.json
 .playwright-mcp
 ./src/server/cert

@@ -167,3 +167,4 @@ Custom elements (e.g., `atom-stripe`) live in `src/components/atoms/wc/`. They u
 - Place constants and pure helpers in `.helpers.ts` files, not in component files
 - No inline styles unless dynamic values require it
 - Import components directly from source files, not barrels
+- **`useWatch` over `watch`** — always use `useWatch()` from `react-hook-form` instead of the `watch()` method returned by `useForm()`. `useWatch` isolates re-renders to only the fields being watched
