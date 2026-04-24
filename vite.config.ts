@@ -4,15 +4,11 @@ import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
 import shelljs from 'shelljs'
 import { defineConfig } from 'vite'
-import checker from 'vite-plugin-checker'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { replaceCodePlugin } from 'vite-plugin-replace'
 
-const useEslint =
-  dotenv.config()?.parsed?.USE_ESLINT !== 'false' || process.env.USE_ESLINT !== 'false'
 const useSSL = dotenv.config()?.parsed?.USE_SSL === 'true' || process.env.USE_SSL === 'true'
 
-console.log('useEslint', useEslint)
 console.log('useSSL', useSSL)
 
 const NODE_ENV = process.env.NODE_ENV || 'production'
@@ -94,7 +90,6 @@ export default defineConfig({
       ],
     }),
     useSSL ? basicSsl() : null,
-    isProd || !useEslint ? null : checker({ eslint: { lintCommand: 'eslint src' } }),
   ],
   server: {
     host: true,

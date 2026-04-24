@@ -140,7 +140,7 @@ views/{kebab-name}.view.spec.tsx    # Vitest test for view
 
 ## Vite Config
 
-- **Plugins**: `@vitejs/plugin-react`, `@tailwindcss/vite`, `vite-plugin-html` (template injection), `vite-plugin-replace` (version/app name tokens), `vite-plugin-checker` (ESLint overlay in dev)
+- **Plugins**: `@vitejs/plugin-react`, `@tailwindcss/vite`, `vite-plugin-html` (template injection), `vite-plugin-replace` (version/app name tokens)
 - **Path resolution**: Built-in `resolve.tsconfigPaths: true` (Vite 8 — no plugin needed)
 - **Base path**: `VITE_BASE` env var or `/core-vite-2`
 - **Dev server**: port 3000, host: true
