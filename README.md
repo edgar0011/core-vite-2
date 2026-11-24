@@ -5,7 +5,7 @@
 [![React](https://img.shields.io/badge/React-19.2.8-61dafb?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178c6?logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8.2.2-646cff?logo=vite)](https://vitejs.dev/)
-[![Vitest](https://img.shields.io/badge/Vitest-4.1.11-6e9f18?logo=vitest)](https://vitest.dev/)
+[![Vitest](https://img.shields.io/badge/Vitest-5.0-6e9f18?logo=vitest)](https://vitest.dev/)
 [![Storybook](https://img.shields.io/badge/Storybook-10.5.10-ff4785?logo=storybook)](https://storybook.js.org/)
 
 `core-vite-2` is the original SPA shell of the `core-*` stack — a prototyping
