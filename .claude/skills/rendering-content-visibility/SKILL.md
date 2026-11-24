@@ -1,12 +1,12 @@
 ---
 name: rendering-content-visibility
-description: Rendering performance guardrail for the core-vite-2 repo. Use Tailwind arbitrary properties for `content-visibility` on long lists so off-screen items defer layout and paint.
+description: Rendering performance guardrail for core-* Vite SPAs. Use Tailwind arbitrary properties for content-visibility on long lists so off-screen items defer layout and paint.
 ---
 
 # CSS content-visibility for Long Lists
 
-impact: HIGH  
-impactDescription: faster initial render  
+impact: HIGH
+impactDescription: faster initial render
 tags: rendering, css, content-visibility, long-lists
 
 Apply `content-visibility: auto` to defer off-screen rendering.

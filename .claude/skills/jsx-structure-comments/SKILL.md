@@ -1,6 +1,6 @@
 ---
 name: jsx-structure-comments
-description: JSX readability guardrail for the core-vite-2 repo. Add concise section comments for major JSX blocks in non-trivial component markup.
+description: JSX readability guardrail for core-* Vite SPAs. Add concise section comments for major JSX blocks in non-trivial component markup.
 ---
 
 # JSX Structure Comments

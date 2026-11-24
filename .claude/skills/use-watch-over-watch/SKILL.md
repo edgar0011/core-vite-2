@@ -1,6 +1,6 @@
 ---
-name: react-use-watch-over-watch
-description: "React Hook Form guardrail. Use `useWatch()` instead of `watch()` from `useForm()` to isolate re-renders to only the watched fields."
+name: use-watch-over-watch
+description: React Hook Form guardrail (web and React Native). Use useWatch() instead of watch() from useForm() to isolate re-renders to the watched fields.
 ---
 
 # useWatch over watch

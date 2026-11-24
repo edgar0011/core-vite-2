@@ -1,6 +1,6 @@
 ---
 name: headless-component-creation
-description: Headless component scaffolding workflow for the core-vite-2 repo. Use when creating new headless components (components with separated view logic) so generation always starts with the required plop command.
+description: Headless component scaffolding workflow for core-* Vite SPAs. Use when creating a component with separated controller/view logic (swappable via a components.View prop) so generation starts with the plop generator.
 ---
 
 # Headless Component Creation

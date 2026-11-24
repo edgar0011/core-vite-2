@@ -1,12 +1,12 @@
 ---
-name: react-client-passive-event-listeners
-description: "Client performance guardrail for React apps. Use when adding touch or wheel handlers so non-blocking listeners use `{ passive: true }` for smooth scrolling."
+name: client-passive-event-listeners
+description: Browser performance guardrail for React SPAs. Use when adding touch or wheel listeners so non-blocking listeners use { passive: true } for smooth scrolling.
 ---
 
 # Use Passive Event Listeners for Scrolling Performance
 
-impact: MEDIUM  
-impactDescription: eliminates scroll delay caused by event listeners  
+impact: MEDIUM
+impactDescription: eliminates scroll delay caused by event listeners
 tags: client, event-listeners, scrolling, performance, touch, wheel
 
 Add `{ passive: true }` to touch and wheel event listeners to enable immediate scrolling. Browsers normally wait for listeners to finish to check if `preventDefault()` is called, causing scroll delay.

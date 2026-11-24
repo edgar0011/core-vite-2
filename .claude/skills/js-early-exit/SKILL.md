@@ -1,12 +1,12 @@
 ---
-name: react-js-early-exit
-description: JavaScript optimization guardrail for React apps. Use when loops or condition checks can stop early once a result is determined.
+name: js-early-exit
+description: JavaScript guardrail for any core-* project (React, React Native, Node). Use when loops or condition checks can stop early once a result is determined.
 ---
 
 # Early Return from Functions
 
-impact: LOW-MEDIUM  
-impactDescription: avoids unnecessary computation  
+impact: LOW-MEDIUM
+impactDescription: avoids unnecessary computation
 tags: javascript, functions, optimization, early-return
 
 Return early when result is determined to skip unnecessary processing.

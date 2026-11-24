@@ -1,6 +1,6 @@
 ---
 name: tailwind-class-organization
-description: Tailwind className formatting rules for the core-vite-2 repo. Use when writing or refactoring JSX className strings, especially when utility counts grow beyond simple inline readability.
+description: Tailwind className formatting rules for core-* Vite SPAs. Use when writing or refactoring JSX className strings, especially when utility counts grow beyond simple inline readability.
 ---
 
 # Tailwind Class Organization
