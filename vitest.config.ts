@@ -13,11 +13,18 @@ export default defineConfig({
       reportsDirectory: 'coverage',
       include: ['src/**/*.{ts,tsx}'],
       exclude: ['src/**/*.d.ts', 'src/**/*.stories.*', 'src/**/index.ts'],
+      // Ratchet: raise these as coverage improves, never lower them.
+      thresholds: {
+        statements: 60,
+        branches: 40,
+        functions: 50,
+        lines: 60,
+      },
     },
   },
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, './src'),
+      '~': path.resolve(import.meta.dirname, './src'),
     },
   },
   css: {
@@ -26,9 +33,5 @@ export default defineConfig({
         loadPaths: ['./src'],
       },
     },
-  },
-  esbuild: {
-    jsx: 'automatic',
-    jsxImportSource: 'react',
   },
 })

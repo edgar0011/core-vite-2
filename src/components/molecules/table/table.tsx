@@ -1,5 +1,4 @@
 import { Table as RadixTable } from '@radix-ui/themes'
-import { useMemo } from 'react'
 
 import { TableCell } from '~/components/atoms/table-cell/table-cell'
 import { TableRow } from '~/components/atoms/table-row/table-row'
@@ -27,25 +26,16 @@ export function Table<T>({
   variant = 'surface',
   ...props
 }: TableProps<T>) {
-  const displayData = useMemo(() => {
-    if (!pagination) {
-      return data
-    }
-    // If pagination is controlled externally, data should already be sliced
-    return data
-  }, [data, pagination])
+  // Pagination is always controlled externally — `data` arrives already sliced.
+  const displayData = data
 
   // Convert TableColumn to TableRowColumn (omit header and width which are header-only props)
-  const rowColumns: TableRowColumn<T>[] = useMemo(
-    () =>
-      columns.map((col) => ({
-        key: col.key,
-        render: col.render,
-        align: col.align,
-        isRowHeader: col.isRowHeader,
-      })),
-    [columns],
-  )
+  const rowColumns: TableRowColumn<T>[] = columns.map((col) => ({
+    key: col.key,
+    render: col.render,
+    align: col.align,
+    isRowHeader: col.isRowHeader,
+  }))
 
   const renderHeader = () => (
     <RadixTable.Header>

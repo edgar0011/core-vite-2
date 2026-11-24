@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { type FC, useMemo } from 'react'
+import { type FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 import { cn } from '~/lib/utils'
@@ -33,8 +33,8 @@ export const Form: FC<FormProps> = ({
   children,
   ...props
 }) => {
-  const schema = useMemo(() => buildZodSchema(fields), [fields])
-  const defaultValues = useMemo(() => buildDefaultValues(fields), [fields])
+  const schema = buildZodSchema(fields)
+  const defaultValues = buildDefaultValues(fields)
 
   const {
     control,

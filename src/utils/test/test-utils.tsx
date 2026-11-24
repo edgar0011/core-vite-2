@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import { Theme } from '@radix-ui/themes'
 import type { RenderOptions, RenderResult } from '@testing-library/react'
 import { render, waitFor } from '@testing-library/react'
@@ -51,9 +50,10 @@ const renderWithRouter = async (
 
   const result = render(<RouterProvider router={router} />, renderOptions)
 
-  // Wait for the router to finish loading
+  // The initial loader run is not a navigation — `navigation.state` is already
+  // 'idle' while the hydrate fallback is still on screen. Wait for `initialized`.
   await waitFor(() => {
-    expect(router.state.navigation.state).toBe('idle')
+    expect(router.state.initialized).toBe(true)
   })
 
   return result

@@ -7,7 +7,9 @@ import { defineConfig } from 'vite'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { replaceCodePlugin } from 'vite-plugin-replace'
 
-const useSSL = dotenv.config()?.parsed?.USE_SSL === 'true' || process.env.USE_SSL === 'true'
+// quiet: dotenv 18 logs to stderr, which Vite prints as an ERROR line on every build
+const useSSL =
+  dotenv.config({ quiet: true })?.parsed?.USE_SSL === 'true' || process.env.USE_SSL === 'true'
 
 console.log('useSSL', useSSL)
 
@@ -17,7 +19,9 @@ const isProd = NODE_ENV === 'production'
 const { stdout: lastCommit } = shelljs.exec('git rev-parse --short HEAD', { silent: true })
 console.log('lastCommit', lastCommit)
 
-import { dependencies, name, version } from './package.json'
+import packageJson from './package.json' with { type: 'json' }
+
+const { dependencies, name, version } = packageJson
 
 const versionToken = `${version}, ${lastCommit?.trim()}`
 

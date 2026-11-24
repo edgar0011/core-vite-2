@@ -1,4 +1,4 @@
-import { ced } from '@e1011/es-kit'
+import { ced } from '@e1011/es-kit/utils/ced'
 
 import styles from './Stripe.scss?inline'
 

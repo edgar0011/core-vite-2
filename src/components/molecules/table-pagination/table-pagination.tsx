@@ -1,7 +1,7 @@
 import { Button, Flex, Select } from '@radix-ui/themes'
 import type { FC } from 'react'
 
-import { Text } from '~/components/atoms/typography'
+import { Text } from '~/components/atoms/typography/text'
 import { cn } from '~/lib/utils'
 
 import type { TablePaginationProps } from './table-pagination.types'

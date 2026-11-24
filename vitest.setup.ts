@@ -33,7 +33,7 @@ if (typeof window !== 'undefined') {
     })),
   })
 
-  // Mock ResizeObserver as a proper class for Radix UI components
+  // Mock ResizeObserver as a proper class (Radix UI / Base UI components need it)
   class MockResizeObserver {
     observe = vi.fn()
     unobserve = vi.fn()
@@ -45,7 +45,7 @@ if (typeof window !== 'undefined') {
     value: MockResizeObserver,
   })
 
-  // Mock pointer capture methods for Radix UI
+  // Mock pointer capture methods (Radix UI / Base UI)
   if (!Element.prototype.hasPointerCapture) {
     Element.prototype.hasPointerCapture = vi.fn(() => false)
   }

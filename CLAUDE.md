@@ -1,22 +1,33 @@
-# UI Component Guidelines for core-vite-2
+# CLAUDE.md — core-vite-2
+
+Guidelines for AI-assisted development. **Detail lives in the referenced files
+below — read the one that covers your task rather than guessing.**
 
 ## Project Overview
 
-core-vite-2 is a Vite-based React SPA for prototyping UI components and patterns.
+core-vite-2 is the original React 19 + Vite 8 SPA shell of the `core-*` stack: a
+prototyping sandbox and the reference frontend the other projects inherit. It
+also ships a plain Express 5 static/SSL server in `src/server/`.
 
-**Tech Stack**:
+It is a **template**: a convention change here is expected to propagate to
+`core-vite-2-nest` (the fullstack scaffold) and its derivatives, so make it as a
+convention — code, plop template, and these docs — not as one edited file.
 
-- **Framework**: React 19 + Vite 8 (SPA, client-side routing via `react-router` v7)
-- **Language**: TypeScript 5.9 (strict, `verbatimModuleSyntax`, `erasableSyntaxOnly`)
-- **Styling**: Tailwind CSS v4 (CSS-first config via `@import 'tailwindcss'` — no `tailwind.config.js`), SCSS modules for component-scoped styles
-- **UI Components**: `@base-ui/react` v1.2 for headless primitives, `@radix-ui/themes` v3.3 for higher-level components (Table, Button, Flex, Select, Link)
-- **Forms**: `react-hook-form` v7 + `zod` v4 + `@hookform/resolvers`
-- **Testing**: Vitest 4 + jsdom + React Testing Library
-- **Storybook**: Storybook 10 (`@storybook/react-vite`)
-- **Package Manager**: yarn 1.22 (classic)
-- **Linting**: ESLint 9 (flat config), Prettier, `simple-import-sort`, `unused-imports`
-- **Git hooks**: Husky — `pre-push` runs `yarn prepush` (lint + test:coverage + tsc)
-- **Code generation**: Plop 4
+## Tech Stack
+
+| | |
+|---|---|
+| Framework | React 19.3 + Vite 8.3 (SPA, `react-router` v8) |
+| Language | TypeScript 5.9 — strict, `verbatimModuleSyntax`, `erasableSyntaxOnly` |
+| Styling | Tailwind CSS v4.3 (CSS-first, no config file) + SCSS modules (`sass-embedded`) |
+| UI | `@base-ui/react` v1.8 headless primitives + `@radix-ui/themes` v3.3 |
+| Forms | `react-hook-form` v7 + `zod` v4 + `@hookform/resolvers` |
+| Testing | Vitest 5.0 + jsdom 30 + React Testing Library |
+| Storybook | Storybook 10.6 (`@storybook/react-vite`) — dev tool only, no Vitest integration |
+| Shared lib | `@e1011/es-kit` v1.6 (hooks, utils, UI primitives) |
+| Tooling | ESLint 9 flat config, Prettier 3.9, Plop 4, Husky, yarn 1.22 (classic) |
+
+Node 24+. **yarn only** — never npm, never pnpm.
 
 ## Key Commands
 
@@ -24,147 +35,59 @@ core-vite-2 is a Vite-based React SPA for prototyping UI components and patterns
 |---|---|
 | `yarn dev` | Dev server on port 3000 |
 | `yarn build` | Type-check + production build |
-| `yarn test` | Run Vitest (single run) |
-| `yarn test:watch` | Run Vitest in watch mode |
-| `yarn test:coverage` | Run Vitest with v8 coverage |
-| `yarn lint` | ESLint src |
-| `yarn lint:fix` | ESLint src with autofix |
+| `yarn test` / `test:watch` / `test:coverage` | Vitest |
+| `yarn lint` / `lint:fix` | ESLint |
+| `yarn tsc -b` | Type-check all projects (src, .storybook, configs) |
 | `yarn storybook` | Storybook on port 6006 |
-| `yarn plop` | Run component generator |
-| `yarn validate` | lint:fix + test:coverage + tsc |
+| `yarn plop` | Scaffold a component |
+| **`yarn validate`** | **lint:fix + tsc -b + test:coverage — the gate** |
+| `yarn build:be` / `start:be` | Express server (port 8080) |
 
-## Code Style and Conventions
+Husky `pre-push` runs `yarn prepush` (lint + tsc + coverage).
 
-### Naming Conventions
+## Critical Rules — Do Not Break These
 
-- **Components**: PascalCase (e.g., `CoachesStatsCard`)
-- **Files**: kebab-case (e.g., `coaches-stats-card.tsx`)
-- **Types**: PascalCase with `Props` suffix (e.g., `CoachesStatsCardProps`)
-- **Functions/Variables**: camelCase
-- **Event parameters**: Always `event`, never `e`
+1. **No `@apply` in `.module.scss`** — SCSS modules bypass Tailwind's pipeline and
+   it silently emits nothing. Use plain CSS properties.
+2. **No default React import** — `import { FC } from 'react'`.
+3. **`import type`** for type-only imports (`verbatimModuleSyntax`).
+4. **No enums, no namespaces, no parameter properties** (`erasableSyntaxOnly`).
+5. **No `useMemo` / `useCallback` / `memo`** — React 19 + the React Compiler
+   handle it. The only exception is a *measured* regression, with a comment
+   saying what was measured.
+6. **Event params are `event`**, never `e`.
+7. **No barrel `index.ts`** — import directly from source files.
+8. **`data-testid`** is the test-id attribute.
+9. **`BoxLayout` / `LayoutBox` as a component's root**, not a raw `<div>` — unless
+   the root is already another component.
+10. **`useWatch()`, never `useForm().watch`**.
+11. **Import es-kit from its narrow entry points**, not the root barrel.
+12. **Scaffold with `yarn plop`** — and change conventions in the template.
 
-### Import Rules
+## Referenced Files
 
-- Path alias: `~/` maps to `src/` (configured in tsconfig + vite)
-- Import sorting enforced by `simple-import-sort` (ESLint)
-- No default imports from `react` — use named imports (`import { FC } from 'react'`)
-- No barrel `index.ts` files — import directly from source files
-- `unused-imports/no-unused-imports` is enforced
+- [docs/conventions.md](docs/conventions.md) — naming, imports, es-kit entry points, file organization, TypeScript config, the `cv2/no-inline-helpers` rule
+- [docs/styling.md](docs/styling.md) — Tailwind v4 CSS-first, the `@apply` trap, CSS variables, `cn()`, theming, Radix bridge
+- [docs/testing.md](docs/testing.md) — Vitest config, jsdom shims, custom render, coverage thresholds
+- [docs/storybook.md](docs/storybook.md) — addons, story pattern, and why there is no Vitest integration
+- [docs/codegen.md](docs/codegen.md) — Plop generators, the 4-file and 6-file component sets
+- [docs/build.md](docs/build.md) — Vite config, chunking, the `window.React` shim, Express server, Docker, known issues
+- [docs/web-components.md](docs/web-components.md) — `ced` decorator, React 19 JSX module augmentation, property-vs-attribute
 
-### File Organization
+## Open follow-ups
 
-```
-src/components/
-├── atoms/           # Small, reusable components (select, typography, table-cell, wc/)
-├── molecules/       # Composed components (form, table-pagination)
-├── es-kit/          # Wrappers around @e1011/es-kit (LayoutBox, BoxLayout)
-├── routes/          # Route-level page components
-└── ui/              # Utility UI components
-```
+Known issues and deferred work for this project are tracked **outside the repo**,
+alongside its sibling, at `../core-vite-2-core-vite-ui-TODOS.md` (the
+`javascript` folder root). Check it before starting work — it records what is
+already known, why it was deferred, and what is blocked upstream. Tick items
+there and reflect anything durable back into this file or `docs/`.
 
-### Styling Rules
+## Before Completing Your Task
 
-- **Tailwind CSS v4**: No `tailwind.config.js`. Config is CSS-first via `@import 'tailwindcss'` in `src/index.css`
-- **`@apply` does NOT work** in `.module.scss` files — SCSS modules bypass Tailwind's pipeline. Use plain CSS properties instead.
-- **CSS variables**: HSL format without `hsl()` wrapper (e.g., `--border: 0 0% 89.8%`). Use as `hsl(var(--border))` in CSS.
-- **`cn()` helper**: `src/lib/utils.ts` — combines `clsx` + `tailwind-merge`
-- Custom utilities (`.scrollbar-none`, `.canvas-linen`) defined in `src/index.css`
-
-### TypeScript Config
-
-- Target: ES2022, Module: ESNext, JSX: react-jsx
-- `verbatimModuleSyntax: true` — use `import type` for type-only imports
-- `erasableSyntaxOnly: true` — no enums, no namespaces, no parameter properties
-- `strict: true`, `noUnusedLocals`, `noUnusedParameters`
-
-## Plop Templates — Component Generation
-
-Run `yarn plop` to scaffold components. There are three generators:
-
-### 1. `Component` / `component` — Standard component
-
-Generates 4 files in `src/components/{module}/`:
-
-```
-{kebab-name}.tsx           # Main component (uses BoxLayout, cn, Radix Heading/Text/Button)
-{kebab-name}.types.ts      # Props type (extends ComponentProps<'div'> & PropsWithChildren)
-{kebab-name}.stories.tsx   # Storybook story (@storybook/react-vite)
-{kebab-name}.spec.tsx      # Vitest test (uses ~/utils/test/test-utils)
+```sh
+yarn validate
 ```
 
-CLI shorthand: `yarn plop component -- --component "module/path/ComponentName"`
-
-### 2. `headless-component` — Headless + View pattern
-
-Generates 6 files with logic/view separation:
-
-```
-{kebab-name}.tsx                    # Controller (delegates to View, supports component injection)
-{kebab-name}.types.ts               # Props types
-{kebab-name}.helpers.ts             # Pure helper functions and constants
-views/{kebab-name}.view.tsx         # View component (uses LayoutBox, cn)
-views/{kebab-name}.view.stories.tsx # Storybook story for view
-views/{kebab-name}.view.spec.tsx    # Vitest test for view
-```
-
-### Template Notes
-
-- Templates import from `~/components/es-kit/components/container/layoutBox/LayoutBox` (BoxLayout/LayoutBox)
-- Stories use `@storybook/react-vite` — `Meta` and `StoryFn as Story`
-- Tests import from `~/utils/test/test-utils` (custom render with Radix `<Theme>` wrapper)
-- Test ID attribute is `data-testid` (the default)
-
-## Testing
-
-### Setup
-
-- **Config**: `vitest.config.ts` — jsdom environment, globals enabled, `~/` alias
-- **Setup file**: `vitest.setup.ts` — imports `@testing-library/jest-dom/vitest`, mocks `matchMedia`, `ResizeObserver`, pointer capture methods for Radix UI
-- **Custom render**: `src/utils/test/test-utils.tsx` — wraps components in Radix `<Theme>`, configures `testIdAttribute: 'data-testid'`
-- **Router testing**: `renderWithRouter()` available for components using `useLoaderData` or data router hooks
-- **Coverage**: v8 provider, reports text + json-summary + lcov, excludes `.d.ts`, `.stories.*`, `index.ts`
-
-### Test Conventions
-
-- Use `vi.fn()` for mocks
-- `describe`/`it` pattern
-- Note: `container.firstChild` is the Radix `<Theme>` wrapper, not your component
-
-## Storybook
-
-- **Framework**: `@storybook/react-vite`
-- **Addons**: chromatic, vitest, a11y, docs, onboarding
-- **Preview decorator**: Wraps all stories in Radix `<Theme>` + `<ThemePanel>`
-- **Stories location**: `src/**/*.stories.@(js|jsx|mjs|ts|tsx)` and `src/**/*.mdx`
-- **a11y**: Configured as `'todo'` mode (shows violations in UI but doesn't fail CI)
-
-## Vite Config
-
-- **Plugins**: `@vitejs/plugin-react`, `@tailwindcss/vite`, `vite-plugin-html` (template injection), `vite-plugin-replace` (version/app name tokens)
-- **Path resolution**: Built-in `resolve.tsconfigPaths: true` (Vite 8 — no plugin needed)
-- **Base path**: `VITE_BASE` env var or `/core-vite-2`
-- **Dev server**: port 3000, host: true
-- **Build-time defines**: `__COMMIT__` (git short SHA), `CORE_VITE_APP_VERSION`, `CORE_VITE_APP`, `CORE_VITE_CONFIG_BASE_PATH`
-
-## React 19 — NO Manual Memoization
-
-This project uses React 19 with `babel-plugin-react-compiler`. Do NOT use:
-
-- `useMemo()`, `useCallback()`, `memo()` — the compiler handles this automatically
-
-Exception: Only when there is a **proven, measured performance issue**. Document why with a comment.
-
-## Web Components
-
-Custom elements (e.g., `atom-stripe`) live in `src/components/atoms/wc/`. They use `customElements.define()` and `observedAttributes`/`attributeChangedCallback`. React 19 passes properties (not attributes) to custom elements — use `attributeChangedCallback` for reactive updates. The `declare global { namespace JSX { ... } }` block for TypeScript support lives in the same file as the component; import the file (side-effect import) to make it visible to TypeScript.
-
-## Best Practices
-
-- Use TypeScript strictly — avoid `any`
-- Use composition over inheritance
-- Keep components small and focused
-- Use `cn()` for conditional class merging
-- Place constants and pure helpers in `.helpers.ts` files, not in component files
-- No inline styles unless dynamic values require it
-- Import components directly from source files, not barrels
-- **`useWatch` over `watch`** — always use `useWatch()` from `react-hook-form` instead of the `watch()` method returned by `useForm()`. `useWatch` isolates re-renders to only the fields being watched
+Green means 0 lint errors, a clean `tsc -b`, and passing tests above the coverage
+thresholds. Lint *warnings* (the `no-inline-helpers` backlog) are pre-existing
+debt — don't add to it.

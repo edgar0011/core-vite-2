@@ -228,7 +228,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 'data-[ending-style]:scale-y-95 data-[ending-style]:opacity-0',
               )}
             >
-              <Combobox.List className="scrollbar-none max-h-64 overflow-y-auto overscroll-contain">
+              <Combobox.List className="max-h-64 scrollbar-none overflow-y-auto overscroll-contain">
                 {renderItems()}
               </Combobox.List>
               {isEmpty && (

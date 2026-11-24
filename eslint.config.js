@@ -17,7 +17,7 @@ import cv2 from './scripts/eslint-plugin-cv2/index.js'
 
 export default defineConfig([
   // Global ignores
-  globalIgnores(['dist', 'distSimple', 'distServer', 'node_modules']),
+  globalIgnores(['coverage', 'dist', 'distServer', 'distSimple', 'node_modules', 'storybook-static']),
 
   // Base config for all TypeScript/JavaScript files
   {
@@ -88,6 +88,14 @@ export default defineConfig([
       'react-hooks/rules-of-hooks': 'warn',
       'react-hooks/exhaustive-deps': 'warn',
       'react/jsx-no-undef': 'error',
+    },
+  },
+
+  // Test utilities, specs and stories are never Fast Refresh boundaries
+  {
+    files: ['src/**/*.spec.{ts,tsx}', 'src/**/*.stories.{ts,tsx}', 'src/utils/test/**/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   },
 

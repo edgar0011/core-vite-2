@@ -1,7 +1,7 @@
 import '@radix-ui/themes/styles.css'
 import '../src/index.css'
 
-import { setThemeClassNames } from '@e1011/es-kit/hooks'
+import { setThemeClassNames } from '@e1011/es-kit/utils/ui'
 import { Theme } from '@radix-ui/themes'
 import type { Preview } from '@storybook/react'
 import { useEffect } from 'react'

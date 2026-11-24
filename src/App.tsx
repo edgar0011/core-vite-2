@@ -1,12 +1,12 @@
 import './sandbox/decorators/decorator-example'
 import './sandbox/decorators/decorator-example-ts'
 
-import { setThemeClassNames } from '@e1011/es-kit'
 import { useThemePreference } from '@e1011/es-kit/hooks'
+import { setThemeClassNames } from '@e1011/es-kit/utils/ui'
 import { Link } from '@radix-ui/themes'
 import { Link as RouterLink, Outlet } from 'react-router'
 
-import { Heading } from '~/components/atoms/typography'
+import { Heading } from '~/components/atoms/typography/heading'
 
 import { BoxLayout, LayoutBox } from './components/es-kit/components/container/layoutBox/LayoutBox'
 import { Box } from './components/molecules/box/box'

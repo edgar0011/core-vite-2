@@ -3,7 +3,7 @@ import './index.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { Heading } from './components/atoms/typography'
+import { Heading } from './components/atoms/typography/heading'
 import { BoxLayout } from './components/es-kit/components/container/layoutBox/LayoutBox'
 
 createRoot(document.getElementById('root')!).render(

@@ -1,10 +1,12 @@
 import '~/components/atoms/wc/Stripe'
 
-import { Button as EsKitButton, LayoutBox, useToggle } from '@e1011/es-kit'
+import { useToggle } from '@e1011/es-kit/hooks'
+import { Button as EsKitButton, LayoutBox } from '@e1011/es-kit/ui'
 import { Button } from '@radix-ui/themes'
 import { type FC, useState } from 'react'
 
-import { Heading, Text } from '~/components/atoms/typography'
+import { Heading } from '~/components/atoms/typography/heading'
+import { Text } from '~/components/atoms/typography/text'
 import { BoxLayout } from '~/components/es-kit/components/container/layoutBox/LayoutBox'
 import { cn } from '~/lib/utils'
 
