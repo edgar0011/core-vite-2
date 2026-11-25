@@ -7,12 +7,12 @@ Vitest owns the UI, unit and e2e tiers. Storybook is a development tool and does
 
 - **Config**: `vitest.config.ts` — jsdom environment, `globals: true`, `~/` alias,
   SCSS `loadPaths: ['./src']`
-- **jest-dom matcher types**: `src/utils/test/jest-dom-vitest.d.ts` — a workaround
-  for [testing-library/jest-dom#738](https://github.com/testing-library/jest-dom/issues/738).
-  jest-dom 7 augments Vitest's old `Assertion<T>`; Vitest 5 made it
-  `Assertion<R, T>` and expects `Matchers<R, T>` to be augmented instead, so
-  without this file every `toBeInTheDocument()` etc. is a type error (runtime is
-  fine). Delete it once jest-dom ships the fix, then confirm `yarn tsc -b`.
+- **jest-dom matcher types**: come from `"types": [..., "@testing-library/jest-dom/vitest"]`
+  in `tsconfig.app.json` (jest-dom 8, which supports Vitest 5 only). The bare
+  `@testing-library/jest-dom` entry types Jest's globals, not Vitest's `expect`.
+- **jsdom 31 resolves `var()` in computed styles.** Radix's CSS variables aren't
+  loaded in tests, so `toHaveStyle({ color: 'var(--x)' })` sees the resolved
+  (empty) value. Assert the inline style instead: `el.style.color`.
 - **Vitest 5 defaults to know**: `clearMocks` is on (mock call history resets
   before every test), unawaited `.resolves`/`.rejects` fail the test, and
   `vi.mock` must be at module top level.
@@ -20,7 +20,7 @@ Vitest owns the UI, unit and e2e tiers. Storybook is a development tool and does
   and `whatwg-fetch`, calls `cleanup()` after each test, and installs shims for
   APIs jsdom does not implement: `matchMedia`, `ResizeObserver`, and
   `Element.prototype.{has,set,release}PointerCapture` (needed by Radix UI and
-  Base UI). Verified against jsdom 30 — all four are still missing natively, so
+  Base UI). Verified against jsdom 31 — all four are still missing natively, so
   the shims are load-bearing.
 - **Custom render**: `src/utils/test/test-utils.tsx` wraps components in the Radix
   `<Theme>` provider and sets `testIdAttribute: 'data-testid'`

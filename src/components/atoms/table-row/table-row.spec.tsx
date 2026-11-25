@@ -58,7 +58,10 @@ describe('components/atoms/table-row/TableRow', () => {
 
     const row = screen.getByRole('row')
     expect(row).toHaveAttribute('data-selected', 'true')
-    expect(row).toHaveStyle({ backgroundColor: 'var(--accent-3)' })
+    // Inline style, not toHaveStyle(): jsdom 31 resolves var() in computed
+    // styles, and Radix's --accent-3 isn't defined in tests (it computes to
+    // transparent). The component's contract is the inline var() reference.
+    expect(row.style.backgroundColor).toBe('var(--accent-3)')
   })
 
   it('calls onClick when row is clicked', () => {

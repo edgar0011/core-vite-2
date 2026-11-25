@@ -22,7 +22,7 @@ convention — code, plop template, and these docs — not as one edited file.
 | Styling | Tailwind CSS v4.3 (CSS-first, no config file) + SCSS modules (`sass-embedded`) |
 | UI | `@base-ui/react` v1.8 headless primitives + `@radix-ui/themes` v3.3 |
 | Forms | `react-hook-form` v7 + `zod` v4 + `@hookform/resolvers` |
-| Testing | Vitest 5.0 + jsdom 30 + React Testing Library |
+| Testing | Vitest 5.1 + jsdom 31 + React Testing Library |
 | Storybook | Storybook 10.6 (`@storybook/react-vite`) — dev tool only, no Vitest integration |
 | Shared lib | `@e1011/es-kit` v1.6 (hooks, utils, UI primitives) |
 | Tooling | ESLint 9 flat config, Prettier 3.9, Plop 4, Husky, yarn 1.22 (classic) |

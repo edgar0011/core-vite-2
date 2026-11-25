@@ -48,7 +48,8 @@ Every generated project MUST include all of the following:
 
 ### 3. Frontend Test Coverage
 
-- Vitest 4 with jsdom environment
+- Vitest 5 with jsdom 31 environment (Vitest 5 needs `vite` in devDependencies under yarn 1)
+- jest-dom 8; matcher types via `@testing-library/jest-dom/vitest` in `tsconfig.app.json` `types`
 - React Testing Library for component tests
 - Coverage: v8 provider, reporters: text + json-summary + lcov
 - Custom render wrapper with theme provider

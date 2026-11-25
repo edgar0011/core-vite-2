@@ -5,7 +5,7 @@
 [![React](https://img.shields.io/badge/React-19.2.8-61dafb?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178c6?logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8.2.2-646cff?logo=vite)](https://vitejs.dev/)
-[![Vitest](https://img.shields.io/badge/Vitest-5.0-6e9f18?logo=vitest)](https://vitest.dev/)
+[![Vitest](https://img.shields.io/badge/Vitest-5.1-6e9f18?logo=vitest)](https://vitest.dev/)
 [![Storybook](https://img.shields.io/badge/Storybook-10.5.10-ff4785?logo=storybook)](https://storybook.js.org/)
 
 `core-vite-2` is the original SPA shell of the `core-*` stack — a prototyping
@@ -24,7 +24,7 @@ template, and docs — not as one edited file.
 - **Tailwind CSS v4** — CSS-first configuration, no `tailwind.config.js`
 - **Base UI 1.8** + **Radix UI Themes 3.3** — headless primitives and themed components
 - **React Hook Form + Zod** — typed forms with schema validation
-- **Vitest 5** + jsdom 30 + Testing Library — with enforced coverage thresholds
+- **Vitest 5** + jsdom 31 + Testing Library — with enforced coverage thresholds
 - **Storybook 10** — component development and docs (not a test runner)
 - **Plop** — component scaffolding (standard + headless generators)
 - **ESLint 9** flat config, **Prettier 3.9**, Husky pre-push gate
@@ -125,7 +125,7 @@ Base UI 1.8 · Tailwind CSS 4.3 · `@e1011/es-kit` 1.6
 manual chunk splitting · Express 5 production server (compression, CORS, helmet,
 rate limiting) · Docker (Node 24 Alpine) · Vercel SPA rewrites
 
-**Testing** — Vitest 5.0 · Testing Library 16.3 · jsdom 30 · Playwright 1.63
+**Testing** — Vitest 5.1 · Testing Library 16.3 · jsdom 31 · Playwright 1.63
 (installed as the Vitest browser-mode provider; no browser tests configured yet)
 
 **Quality** — TypeScript 5.9 · ESLint 9.39 · Prettier 3.9 · Plop 4
